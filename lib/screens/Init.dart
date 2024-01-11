@@ -27,7 +27,7 @@ class _Init extends State<Init>{
               const SizedBox(height: 20),
               Container(child: 
                 const Row( mainAxisAlignment: MainAxisAlignment.center,children: [
-                  Text("Harmonica", 
+                  Text("Harmonica,", 
                     style: TextStyle(
                       color: Colors.deepPurpleAccent,
                       fontWeight: FontWeight.bold,
@@ -36,7 +36,7 @@ class _Init extends State<Init>{
                     ),
                   ),
 
-                  Text(", Connecting Listeners",
+                  Text(" Connecting Listeners",
                     style: TextStyle(
                       fontStyle: FontStyle.italic,
                       fontSize: 16,
