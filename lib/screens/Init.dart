@@ -24,7 +24,11 @@ class _Init extends State<Init>{
                 const SizedBox(height: 30),
                 const Titulos("Welcome!"),
                 const SizedBox(height: 20),
-                const Text("Harmonica, Connecting Listeners"),
+                Container(child: const Row( mainAxisAlignment: MainAxisAlignment.center,children: [
+                Text("Harmonica"),Text(", Connecting Listeners")
+                ],
+                ),),
+                
                 const SizedBox(height: 30),
                 buildButton("Login", () { 
 

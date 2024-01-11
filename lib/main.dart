@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:harmonica/pantallas/Init.dart';
+import 'package:harmonica/screens/Init.dart';
 
 void main() {
   runApp(const MainApp());
