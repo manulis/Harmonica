@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 
 //Widgets para titulos
-class Titulos extends StatefulWidget {
+class Titles extends StatefulWidget {
   final String texto;
-  const Titulos(this.texto);
+  const Titles(this.texto);
   @override
-  _TitulosState createState() => _TitulosState();
+  _TitlesState createState() => _TitlesState();
 }
 
-class _TitulosState extends State<Titulos> {
+class _TitlesState extends State<Titles> {
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -23,7 +23,6 @@ class _TitulosState extends State<Titulos> {
     );
   }
 }
-
 
 //Widgets para botones
 Widget buildButton(String text, VoidCallback onPressed) {
