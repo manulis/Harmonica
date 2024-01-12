@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:harmonica/profile.dart';
 import 'package:harmonica/screens/Init.dart';
 
 void main() {
@@ -11,7 +12,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Init(),
+      home: Profile(),
     );
   }
 }
