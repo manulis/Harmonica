@@ -51,7 +51,7 @@ class _Init extends State<Init>{
                   MaterialPageRoute(builder: (context) => Login()),
                 );
               }),
-              const SizedBox(height: 30),
+              const SizedBox(height: 50),
               buildButton("Register",  () { 
                  Navigator.push(
                   context,
