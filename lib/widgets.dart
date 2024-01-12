@@ -16,9 +16,9 @@ class _TitlesState extends State<Titles> {
       widget.texto,
       textAlign: TextAlign.center,
       style: const TextStyle(
-        color: Colors.black,
+        color: Colors.white,
         fontSize: 50,
-        fontStyle: FontStyle.italic,
+        fontWeight: FontWeight.w500,
       ),
     );
   }
@@ -30,8 +30,8 @@ Widget buildButton(String text, VoidCallback onPressed) {
     onPressed: onPressed,
     style: ElevatedButton.styleFrom(
       padding: const EdgeInsets.all(20.0),
-      minimumSize: const Size(200.0, 60.0),
-      backgroundColor: Colors.black,
+      minimumSize: const Size(191.0, 60.0),
+      backgroundColor: Color.fromRGBO(102, 61, 168, 1),
       foregroundColor: Colors.white,
     ),
     child: Text(text),

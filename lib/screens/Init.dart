@@ -3,6 +3,7 @@ import 'package:harmonica/screens/Login.dart';
 import 'package:harmonica/screens/Register.dart';
 import 'package:harmonica/widgets.dart';
 import 'package:harmonica/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Init extends StatefulWidget{
  @override
@@ -12,27 +13,24 @@ class Init extends StatefulWidget{
 class _Init extends State<Init>{
   Widget build(BuildContext context){
     return Scaffold(
+      backgroundColor: Color.fromRGBO(40, 4, 64, 1),
       body: Container(
         child: Center(child: 
             Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 100),
             child: Column(children: [
-              const Icon(
-                  Icons.audiotrack,
-                  color: Colors.green,
-                  size: 60.0,
-                ),
-              const SizedBox(height: 30),
+             Image.asset("assets/images/LogoPositivo.png"),
+              const SizedBox(height: 50),
               const Titles("Welcome!"),
-              const SizedBox(height: 20),
+              const SizedBox(height: 50),
               Container(child: 
                 const Row( mainAxisAlignment: MainAxisAlignment.center,children: [
                   Text("Harmonica,", 
                     style: TextStyle(
-                      color: Colors.deepPurpleAccent,
+                      color: Color.fromRGBO(188, 220, 76, 1),
                       fontWeight: FontWeight.bold,
                       fontStyle: FontStyle.italic,
-                      fontSize: 18,
+                      fontSize: 16,
                     ),
                   ),
 
@@ -40,12 +38,13 @@ class _Init extends State<Init>{
                     style: TextStyle(
                       fontStyle: FontStyle.italic,
                       fontSize: 16,
+                      color: Colors.white,
                     ),
                   )
                 ],
                 ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 80),
               buildButton("Login", () {
                 Navigator.push(
                   context,

@@ -44,7 +44,8 @@ class _Login extends State<Login>{
                     Container(
                        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
                         height: height / 2,
-                        margin: const EdgeInsets.all(32),
+                        margin: const EdgeInsets.all(10),
+                        
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(32)
