@@ -21,7 +21,14 @@ class _Init extends State<Init>{
             child: Column(children: [
              Image.asset("assets/images/LogoPositivo.png"),
               const SizedBox(height: 50),
-              const Titles("Welcome!"),
+              const Text('Welcome!', textAlign: TextAlign.center,
+                        style: 
+                          TextStyle(
+                            color: Colors.white,
+                            fontSize: 50,
+                            fontWeight: FontWeight.w500,
+                        ),
+                      ),
               const SizedBox(height: 50),
               Container(child: 
                 const Row( mainAxisAlignment: MainAxisAlignment.center,children: [

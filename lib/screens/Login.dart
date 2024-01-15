@@ -27,17 +27,19 @@ class _Login extends State<Login>{
                        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
                         height: height / 1.9,
                         margin: const EdgeInsets.all(20),
-                        
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(32)
                         ),
                         child: Column( 
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        
                         children: [
                             const SizedBox(height: 22),
+
                             const Text('Login', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+
                             const SizedBox(height: 30),
+
                             TextField(
                               decoration: const InputDecoration(
                                 labelText: 'Name', labelStyle: TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontStyle: FontStyle.italic),
@@ -49,17 +51,34 @@ class _Login extends State<Login>{
                                 });
                               },
                             ),
+                            
+                          PasswordTextField(),
 
-                            PasswordTextField(),
+                          const SizedBox(height: 30),
 
-                            const SizedBox(height: 30),
+                          Row(
+                            children: [
+                              Material(
+                                child: InkWell(
+                                onTap: () {print('Forgot your Password? clickeado');},
+                                child: const Text('Forgot your Password?', style: TextStyle(color: Color.fromRGBO(59, 6, 69, 1), ),),
+                              )
+                              ),
+                              const SizedBox(width: 15),
+                              Material(
+                                child: InkWell(
+                                  onTap: (){},
+                                  child:  const Text('Need and account?', style: TextStyle(color: Color.fromRGBO(59, 6, 69, 1),),)
+                                ) 
+                              )
+                            ],
+                          ),
 
-                            buildButton('Sign In', () { 
+                          const SizedBox(height: 30),
 
+                          buildButton('Sign In', () { 
 
-                            })
-
-
+                          })
 
                         ],
                         ),

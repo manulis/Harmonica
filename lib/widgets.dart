@@ -1,31 +1,7 @@
 import 'package:flutter/material.dart';
 
-
-//Widgets para titulos
-class Titles extends StatefulWidget {
-  final String texto;
-  const Titles(this.texto);
-  @override
-  _TitlesState createState() => _TitlesState();
-}
-
-class _TitlesState extends State<Titles> {
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      widget.texto,
-      textAlign: TextAlign.center,
-      style: const TextStyle(
-        color: Colors.white,
-        fontSize: 50,
-        fontWeight: FontWeight.w500,
-      ),
-    );
-  }
-}
-
-
 //Cabecera con Logo
+
 Widget headLogo(double height){
   return Container(
      height: height/2,
@@ -46,11 +22,13 @@ Widget headLogo(double height){
   );
 }
 
-//Widgets para botones
+//Botones:
+
 Widget buildButton(String text, VoidCallback onPressed) {
   return TextButton(
     onPressed: onPressed,
     style: ElevatedButton.styleFrom(
+      
       padding: const EdgeInsets.all(20.0),
       minimumSize: const Size(191.0, 60.0),
       backgroundColor: Color.fromRGBO(102, 61, 168, 1),
@@ -75,8 +53,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       child: TextField(
         obscureText: _obscureText,
         decoration: InputDecoration(
-          labelText: 'Password', labelStyle: TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontStyle: FontStyle.italic),
-                                hintText: 'Write your Password' ,hintStyle: TextStyle(color: Color.fromARGB(255, 172, 172, 172), fontStyle: FontStyle.italic),
+          labelText: 'Password', labelStyle: const TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontStyle: FontStyle.italic),hintText: 'Write your Password' ,hintStyle: TextStyle(color: Color.fromARGB(255, 172, 172, 172), fontStyle: FontStyle.italic),
           suffixIcon: IconButton(
             icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
             onPressed: () {
