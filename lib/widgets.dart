@@ -38,32 +38,17 @@ Widget buildButton(String text, VoidCallback onPressed) {
   );
 }
 
-//campos de texto especiales
-
-class PasswordTextField extends StatefulWidget {
-  @override
-  _PasswordTextFieldState createState() => _PasswordTextFieldState();
-}
-
-class _PasswordTextFieldState extends State<PasswordTextField> {
-  bool _obscureText = true;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: TextField(
-        obscureText: _obscureText,
-        decoration: InputDecoration(
-          labelText: 'Password', labelStyle: const TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontStyle: FontStyle.italic),hintText: 'Write your Password' ,hintStyle: TextStyle(color: Color.fromARGB(255, 172, 172, 172), fontStyle: FontStyle.italic),
-          suffixIcon: IconButton(
-            icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
-            onPressed: () {
-              setState(() {
-                _obscureText = !_obscureText;
-              });
-            },
-          ),
+Widget buildClickableText(String text, VoidCallback onTap) {
+    return Material(
+      child: InkWell(
+        onTap: onTap,
+        child: Text(
+          text,
+          style: TextStyle(color: const Color.fromRGBO(59, 6, 69, 1)),
         ),
       ),
     );
   }
-}
+
+
+
