@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 
 //Cabecera con Logo
-
 Widget headLogo(double height){
   return Container(
      height: height/2,
-          width: double.infinity,
-          decoration:
-          const BoxDecoration(
-            color: Color.fromRGBO(40, 4, 64, 1),
-            borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(50),
-              bottomLeft: Radius.circular(50)
-            )
-          ),
-          child:  Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset("assets/images/LogoPositivo.png", width: 300,),
-          ]),
+      width: double.infinity,
+      decoration:
+      const BoxDecoration(
+        color: Color.fromRGBO(40, 4, 64, 1),
+        borderRadius: BorderRadius.only(
+          bottomRight: Radius.circular(50),
+          bottomLeft: Radius.circular(50)
+        )
+      ),
+      child:  Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset("assets/images/LogoPositivo.png", width: 300,),
+      ]),
   );
 }
 

@@ -12,7 +12,6 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: const Color.fromRGBO(59, 6, 69, 1),
       body: SizedBox(
@@ -54,27 +53,25 @@ class _LoginState extends State<Login> {
                             },
                           ),
                          
-                          Container(
-                            child: TextField(
-                              onChanged: (text) {
-                                setState(() {});                
-                              },
-                              obscureText: _obscureText,
-                              decoration: InputDecoration(
-                                labelText: 'Password', 
-                                labelStyle: const TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontStyle: FontStyle.italic, fontSize: 16),
-                                hintText: 'Write your Password',
-                                hintStyle: TextStyle(color: Color.fromARGB(255, 172, 172, 172), fontStyle: FontStyle.italic, fontSize: 16),
-                                suffixIcon: IconButton(
-                                  icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
-                                  onPressed: () {
-                                    setState(() {
-                                      _obscureText = !_obscureText;
-                                    });
-                                  },
-                                ),
-                              ),  
-                            ),
+                          TextField(
+                            onChanged: (text) {
+                              setState(() {});                
+                            },
+                            obscureText: _obscureText,
+                            decoration: InputDecoration(
+                              labelText: 'Password', 
+                              labelStyle: const TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontStyle: FontStyle.italic, fontSize: 16),
+                              hintText: 'Write your Password',
+                              hintStyle: TextStyle(color: Color.fromARGB(255, 172, 172, 172), fontStyle: FontStyle.italic, fontSize: 16),
+                              suffixIcon: IconButton(
+                                icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
+                                onPressed: () {
+                                  setState(() {
+                                    _obscureText = !_obscureText;
+                                  });
+                                },
+                              ),
+                            ),  
                           ),
                           const SizedBox(height: 50),
                           Row(
@@ -88,8 +85,8 @@ class _LoginState extends State<Login> {
                               }),
                             ],
                           ),
-                          const SizedBox(height: 50),
-                          buildButton('Sign In', () {
+                          const SizedBox(height: 30),
+                          buildButton('Sign In', () async {
 
                             
                           }),
@@ -105,6 +102,4 @@ class _LoginState extends State<Login> {
       ),
     );
   }
-
-  
 }

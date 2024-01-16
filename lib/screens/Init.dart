@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:harmonica/screens/Login.dart';
-import 'package:harmonica/screens/Register.dart';
+import 'package:harmonica/navigator.dart';
+
 import 'package:harmonica/widgets.dart';
-import 'package:harmonica/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 
 class Init extends StatefulWidget{
  @override
@@ -53,17 +52,11 @@ class _Init extends State<Init>{
               ),
               const SizedBox(height: 80),
               buildButton("Login", () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Login()),
-                );
+                nav('Login', context);
               }),
               const SizedBox(height: 50),
               buildButton("Register",  () { 
-                 Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Register()),
-                );
+                nav('Register', context);
               })
             ],)
           ),
