@@ -11,25 +11,38 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const Scaffold(
-        body: Center(
-        child: Column(
-          children: [
-            Card(
-              color:Colors.purple,
-              child: Padding(
-                padding: EdgeInsets.only(top: 100,bottom: 100,left: 300, right: 300 ),
-                child: Column(
-                  children: [
-                    Image(image: NetworkImage("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),)
-                  ],
+        home: const Scaffold(
+        body: Column(children: [ProfileCard()]),
+    ));
+  }
+}
+
+class ProfileCard extends StatelessWidget {
+  const ProfileCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      child: Card(
+          color: Colors.purple,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                ClipRRect(
+                  borderRadius:BorderRadius.circular(100.0),
+                  child:Image(
+                    image: AssetImage("profile.jpg"),
+                    height: 100,
+                    width: 100,
+                  ),
                 ),
-              )
-            )
-          ],
-          ),
-      ),
-      ),
+                Text("Hola"),
+              ],
+            ),
+          )
+        ),
     );
   }
 }
