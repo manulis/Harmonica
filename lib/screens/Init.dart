@@ -1,67 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:harmonica/navigator.dart';
-
 import 'package:harmonica/widgets.dart';
 
-
-class Init extends StatefulWidget{
- @override
+class Init extends StatefulWidget {
+  @override
   State<Init> createState() => _Init();
 }
 
-class _Init extends State<Init>{
-  Widget build(BuildContext context){
+class _Init extends State<Init> {
+  get screenWidt => null;
+
+  @override
+  Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Color.fromRGBO(40, 4, 64, 1),
-      body: Container(
-        child: Center(child: 
-            Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 100),
-            child: Column(children: [
-             Image.asset("assets/images/LogoPositivo.png"),
-              const SizedBox(height: 50),
-              const Text('Welcome!', textAlign: TextAlign.center,
-                        style: 
-                          TextStyle(
-                            color: Colors.white,
-                            fontSize: 50,
-                            fontWeight: FontWeight.w500,
-                        ),
-                      ),
-              const SizedBox(height: 50),
-              Container(child: 
-                const Row( mainAxisAlignment: MainAxisAlignment.center,children: [
-                  Text("Harmonica,", 
+      backgroundColor: const Color.fromRGBO(40, 4, 64, 1),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 100),
+              child: Column(
+                children: [
+                  Image.asset("assets/images/LogoPositivo.png", width: screenWidth,),
+                  const SizedBox(height: 50),
+                   const Text(
+                    'Welcome!',
+                    textAlign: TextAlign.center,
+                    
                     style: TextStyle(
-                      color: Color.fromRGBO(188, 220, 76, 1),
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic,
-                      fontSize: 16,
+                      color: Colors.white,
+                      fontSize:50,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-
-                  Text(" Connecting Listeners",
-                    style: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      fontSize: 16,
-                      color: Colors.white,
-                    ),
-                  )
+                  const SizedBox(height: 50),
+                    Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Harmonica,",
+                        style: TextStyle(
+                          color: Color.fromRGBO(188, 220, 76, 1),
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic,
+                          fontSize: screenWidth*0.04,
+                        ),
+                      ),
+                      Text(
+                        " Connecting Listeners",
+                        style: TextStyle(
+                          fontStyle: FontStyle.italic,
+                          fontSize: screenWidth*0.04,
+                          color: Colors.white,
+                          
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 80),
+                  buildButton("Login", () {
+                    nav('Login', context);
+                  }),
+                  const SizedBox(height: 50),
+                  buildButton("Register", () {
+                    nav('Register', context);
+                  })
                 ],
-                ),
               ),
-              const SizedBox(height: 80),
-              buildButton("Login", () {
-                nav('Login', context);
-              }),
-              const SizedBox(height: 50),
-              buildButton("Register",  () { 
-                nav('Register', context);
-              })
-            ],)
+            ),
           ),
-        )
-      ), 
+        ),
+      ),
     );
   }
 }
