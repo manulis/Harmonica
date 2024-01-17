@@ -51,10 +51,23 @@ class _Register extends State<Register> {
                     child: Column(
                       children: [
                         const SizedBox(height: 20),
-                        const Text(
-                          'Register',
-                          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
+                         Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {Navigator.pop(context);},
+                              icon: const Icon(Icons.arrow_back),
+                            ),
+                            const Expanded(
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'Register',
+                                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 15),
                         TextField(

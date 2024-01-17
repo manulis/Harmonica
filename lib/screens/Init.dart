@@ -8,7 +8,7 @@ class Init extends StatefulWidget {
 }
 
 class _Init extends State<Init> {
-  get screenWidt => null;
+
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:harmonica/widgets.dart';
+import 'package:harmonica/navigator.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth =  MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(40, 4, 64, 1),
@@ -33,10 +35,23 @@ class _LoginState extends State<Login> {
                     child: Column(
                       children: [
                         const SizedBox(height: 22),
-                        const Text(
-                          'Login',
-                          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {Navigator.pop(context);},
+                              icon: const Icon(Icons.arrow_back),
+                            ),
+                            const Expanded(
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'Login',
+                                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 15),
                         TextField(
@@ -90,7 +105,7 @@ class _LoginState extends State<Login> {
                           children: [
                             buildClickableText('Forgot your Password?', () {}),
                             Spacer(),
-                            buildClickableText('Need an account?', () {}),
+                            buildClickableText('Need an account?', () {nav('Register', context);}),
                           ],
                         ),
                         const SizedBox(height: 20),
