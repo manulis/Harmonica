@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:harmonica/navigator.dart';
 import 'package:harmonica/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:harmonica/functions/databasePetitions.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -55,18 +56,17 @@ class _Register extends State<Register> {
                           children: [
                             IconButton(
                               onPressed: () {Navigator.pop(context);},
-                              icon: const Icon(Icons.arrow_back),
+                              icon: const Icon(Icons.arrow_back_ios),
                             ),
                             const Expanded(
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'Register',
-                                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
+                              child: 
+                              Text(
+                                'Register',
+                                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
                               ),
                             ),
+                            const SizedBox(width: 50),
                           ],
                         ),
                         const SizedBox(height: 15),
@@ -196,7 +196,9 @@ class _Register extends State<Register> {
                         const SizedBox(height: 30),
                         SizedBox(
                           width: double.infinity, // Ajusta el ancho para ocupar todo el espacio disponible
-                          child: buildButton('Sign Up', () async {}),
+                          child: buildButton('Sign Up', () async {
+
+                          }),
                         ),
                         const SizedBox(height: 20),
                         Row(

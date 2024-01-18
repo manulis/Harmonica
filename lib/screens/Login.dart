@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:harmonica/widgets.dart';
 import 'package:harmonica/navigator.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -26,11 +27,12 @@ class _LoginState extends State<Login> {
               child: Column(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                     padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
                     margin: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(32),
+                      
                     ),
                     child: Column(
                       children: [
@@ -38,19 +40,18 @@ class _LoginState extends State<Login> {
                         Row(
                           children: [
                             IconButton(
+                              
                               onPressed: () {Navigator.pop(context);},
-                              icon: const Icon(Icons.arrow_back),
+                              icon: const Icon(Icons.arrow_back_ios),
                             ),
                             const Expanded(
-                              child: Align(
-                                alignment: Alignment.center,
                                 child: Text(
                                   'Login',
                                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                                   textAlign: TextAlign.center,
                                 ),
-                              ),
                             ),
+                            const SizedBox(width: 50),
                           ],
                         ),
                         const SizedBox(height: 15),
@@ -109,9 +110,10 @@ class _LoginState extends State<Login> {
                           ],
                         ),
                         const SizedBox(height: 20),
-                        buildButton('Sign In', () async {}),
-                        
-                       
+                        buildButton('Sign In', () async {
+
+
+                        }),
                       ],
                     ),
                   ),
