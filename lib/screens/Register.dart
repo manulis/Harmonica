@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:harmonica/navigator.dart';
-import 'package:harmonica/objects/User.dart' as UserObject;
 import 'package:harmonica/widgets.dart';
-import 'package:intl/intl.dart';
+import 'package:harmonica/navigator.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
+import 'package:intl/intl.dart'; // Añadido para el formato de fecha
+import 'package:harmonica/objects/User.dart' as UserObject; // Añadido para el manejo de objetos de usuario
 
 class Register extends StatefulWidget {
   @override
@@ -35,38 +35,51 @@ class _Register extends State<Register> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth =  MediaQuery.of(context).size.width;
-    
+
     return Scaffold(
       backgroundColor: Color.fromRGBO(40, 4, 64, 1),
       body: SafeArea(
-        child: ListView(
-          children: [
-            headLogo(screenHeight),
-            Container(
+        child: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+              SliverAppBar(
+                backgroundColor: Color.fromRGBO(40, 4, 64, 1),
+                expandedHeight: screenHeight / 4,
+                floating: false,
+                pinned: false,
+                automaticallyImplyLeading: false,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: headLogo(screenHeight),
+                ),
+              ),
+            ];
+          },
+          body: SingleChildScrollView(
+            child: Container(
               padding: const EdgeInsets.all(15),
               child: Column(
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
-                   
                     margin: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(32),
                     ),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         const SizedBox(height: 20),
-                         Row(
+                        Row(
                           children: [
                             IconButton(
-                              onPressed: () {Navigator.pop(context);},
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
                               icon: const Icon(Icons.arrow_back_ios),
                             ),
                             const Expanded(
-                              child: 
-                              Text(
+                              child: Text(
                                 'Register',
                                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
@@ -90,7 +103,9 @@ class _Register extends State<Register> {
                                 fontSize: 16),
                           ),
                           onChanged: (text) {
-                            setState(() {name = text;});  
+                            setState(() {
+                              name = text;
+                            });
                           },
                         ),
                         TextField(
@@ -108,8 +123,9 @@ class _Register extends State<Register> {
                                 fontSize: 16),
                           ),
                           onChanged: (text) {
-                            setState(() {email = text;});
-
+                            setState(() {
+                              email = text;
+                            });
                           },
                         ),
                         TextField(
@@ -127,14 +143,15 @@ class _Register extends State<Register> {
                                 fontSize: 16),
                           ),
                           onChanged: (text) {
-                            setState(() { phone = text;});
+                            setState(() {
+                              phone = text;
+                            });
                           },
                         ),
                         GestureDetector(
                           onTap: () {
                             _selectDate(context);
                           },
-                          
                           child: InputDecorator(
                             decoration: const InputDecoration(
                               suffixIcon: Icon(Icons.calendar_today),
@@ -142,14 +159,14 @@ class _Register extends State<Register> {
                             child: Text(
                               DateFormat('dd/MM/yyyy').format(_selectedDate),
                               style: const TextStyle(fontSize: 16.0),
-                              
                             ),
                           ),
                         ),
-
                         TextField(
                           onChanged: (text) {
-                            setState(() {password = text;});
+                            setState(() {
+                              password = text;
+                            });
                           },
                           obscureText: _obscureText1,
                           decoration: InputDecoration(
@@ -205,12 +222,16 @@ class _Register extends State<Register> {
                         ),
                         const SizedBox(height: 30),
                         SizedBox(
-                          width: double.infinity, // Ajusta el ancho para ocupar todo el espacio disponible
                           child: buildButton('Sign Up', () async {
-                            String birthDate =  DateFormat('dd/MM/yyyy').format(_selectedDate);
-                            UserObject.User user =   UserObject.User(name, email, phone, birthDate, password, [''], ['']);
+                            String birthDate = DateFormat('dd/MM/yyyy').format(_selectedDate);
+                            UserObject.User user = UserObject.User(name, email, phone, birthDate, password, [''], ['']);
                             print(user);
-                            await postUser(user);
+                            bool registerInfo = await userHandler.postUser(user);
+                            if (registerInfo) {
+                              PopUp(context, 'Registrado', 'Registrado con exito');
+                            } else {
+                              PopUp(context, 'Error', 'Parece que hubo un error');
+                            }
                           }),
                         ),
                         const SizedBox(height: 20),
@@ -228,7 +249,7 @@ class _Register extends State<Register> {
                 ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );

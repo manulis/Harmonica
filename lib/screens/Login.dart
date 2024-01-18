@@ -14,42 +14,56 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth =  MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(40, 4, 64, 1),
       body: SafeArea(
-        child: ListView(
-          children: [
-            headLogo(screenHeight),
-            Container(
+        child: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+              SliverAppBar(
+                backgroundColor: Color.fromRGBO(40, 4, 64, 1),
+                expandedHeight: screenHeight / 4,
+                floating: false,
+                pinned: false,
+                automaticallyImplyLeading: false,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: headLogo(screenHeight),
+                ),
+              ),
+            ];
+          },
+          body: SingleChildScrollView(
+            child: Container(
               padding: const EdgeInsets.all(15),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Container(
-                     padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
                     margin: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(32),
-                      
                     ),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         const SizedBox(height: 22),
                         Row(
                           children: [
                             IconButton(
-                              
-                              onPressed: () {Navigator.pop(context);},
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
                               icon: const Icon(Icons.arrow_back_ios),
                             ),
                             const Expanded(
-                                child: Text(
-                                  'Login',
-                                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
+                              child: Text(
+                                'Login',
+                                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                             const SizedBox(width: 50),
                           ],
@@ -99,21 +113,21 @@ class _LoginState extends State<Login> {
                               },
                             ),
                           ),
-                        ), 
+                        ),
                         const SizedBox(height: 30),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             buildClickableText('Forgot your Password?', () {}),
                             const Spacer(),
-                            buildClickableText('Need an account?', () {nav('Register', context);}),
+                            buildClickableText('Need an account?', () {
+                              nav('Register', context);
+                            }),
                           ],
                         ),
                         const SizedBox(height: 20),
                         buildButton('Sign In', () async {
-
-                          await getUser();
-
+                          await userHandler.getUser();
                         }),
                       ],
                     ),
@@ -121,9 +135,10 @@ class _LoginState extends State<Login> {
                 ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );
   }
 }
+
