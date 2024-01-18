@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:harmonica/navigator.dart';
-import 'package:harmonica/objects/User.dart';
+import 'package:harmonica/objects/User.dart' as UserObject;
 import 'package:harmonica/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
@@ -14,6 +14,10 @@ class _Register extends State<Register> {
   bool _obscureText1 = true;
   bool _obscureText2 = true;
   DateTime _selectedDate = DateTime.now();
+  String name = '';
+  String email = '';
+  String phone = '';
+  String password = '';
 
   void _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -32,6 +36,7 @@ class _Register extends State<Register> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth =  MediaQuery.of(context).size.width;
+    
     return Scaffold(
       backgroundColor: Color.fromRGBO(40, 4, 64, 1),
       body: SafeArea(
@@ -85,8 +90,7 @@ class _Register extends State<Register> {
                                 fontSize: 16),
                           ),
                           onChanged: (text) {
-                            setState(() {String name = text;}); 
-                              
+                            setState(() {name = text;});  
                           },
                         ),
                         TextField(
@@ -104,7 +108,7 @@ class _Register extends State<Register> {
                                 fontSize: 16),
                           ),
                           onChanged: (text) {
-                            setState(() {String email = text;});
+                            setState(() {email = text;});
 
                           },
                         ),
@@ -123,7 +127,7 @@ class _Register extends State<Register> {
                                 fontSize: 16),
                           ),
                           onChanged: (text) {
-                            setState(() {String phone = text;});
+                            setState(() { phone = text;});
                           },
                         ),
                         GestureDetector(
@@ -145,7 +149,7 @@ class _Register extends State<Register> {
 
                         TextField(
                           onChanged: (text) {
-                            setState(() {String password = text;});
+                            setState(() {password = text;});
                           },
                           obscureText: _obscureText1,
                           decoration: InputDecoration(
@@ -203,8 +207,10 @@ class _Register extends State<Register> {
                         SizedBox(
                           width: double.infinity, // Ajusta el ancho para ocupar todo el espacio disponible
                           child: buildButton('Sign Up', () async {
-                            
-                            await postUser();
+                            String birthDate =  DateFormat('dd/MM/yyyy').format(_selectedDate);
+                            UserObject.User user =   UserObject.User(name, email, phone, birthDate, password, [''], ['']);
+                            print(user);
+                            await postUser(user);
                           }),
                         ),
                         const SizedBox(height: 20),

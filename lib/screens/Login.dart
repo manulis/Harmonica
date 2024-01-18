@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:harmonica/widgets.dart';
 import 'package:harmonica/navigator.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:harmonica/functions/databasePetitions.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -105,13 +105,14 @@ class _LoginState extends State<Login> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             buildClickableText('Forgot your Password?', () {}),
-                            Spacer(),
+                            const Spacer(),
                             buildClickableText('Need an account?', () {nav('Register', context);}),
                           ],
                         ),
                         const SizedBox(height: 20),
                         buildButton('Sign In', () async {
 
+                          await getUser();
 
                         }),
                       ],

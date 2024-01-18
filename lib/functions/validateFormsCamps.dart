@@ -1,0 +1,4 @@
+emailValidate(email){
+
+
+}
