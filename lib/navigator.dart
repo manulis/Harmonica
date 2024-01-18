@@ -10,7 +10,7 @@ nav(String ScreenName, context){
       Navigator.of(context).push(CupertinoPageRoute(builder: (BuildContext context){return Login();}));
       break;
     case 'Register':
-      Navigator.of(context).push(CupertinoPageRoute(builder: (BuildContext context){return Login();}));
+      Navigator.of(context).push(CupertinoPageRoute(builder: (BuildContext context){return Register();}));
       break;
   }
 }

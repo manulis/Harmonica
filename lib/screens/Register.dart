@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:harmonica/navigator.dart';
+import 'package:harmonica/objects/User.dart';
 import 'package:harmonica/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
@@ -30,7 +31,7 @@ class _Register extends State<Register> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-
+    final screenWidth =  MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Color.fromRGBO(40, 4, 64, 1),
       body: SafeArea(
@@ -84,7 +85,8 @@ class _Register extends State<Register> {
                                 fontSize: 16),
                           ),
                           onChanged: (text) {
-                            setState(() {});
+                            setState(() {String name = text;}); 
+                              
                           },
                         ),
                         TextField(
@@ -102,7 +104,8 @@ class _Register extends State<Register> {
                                 fontSize: 16),
                           ),
                           onChanged: (text) {
-                            setState(() {});
+                            setState(() {String email = text;});
+
                           },
                         ),
                         TextField(
@@ -120,13 +123,14 @@ class _Register extends State<Register> {
                                 fontSize: 16),
                           ),
                           onChanged: (text) {
-                            setState(() {});
+                            setState(() {String phone = text;});
                           },
                         ),
                         GestureDetector(
                           onTap: () {
                             _selectDate(context);
                           },
+                          
                           child: InputDecorator(
                             decoration: const InputDecoration(
                               suffixIcon: Icon(Icons.calendar_today),
@@ -134,12 +138,14 @@ class _Register extends State<Register> {
                             child: Text(
                               DateFormat('dd/MM/yyyy').format(_selectedDate),
                               style: const TextStyle(fontSize: 16.0),
+                              
                             ),
                           ),
                         ),
+
                         TextField(
                           onChanged: (text) {
-                            setState(() {});
+                            setState(() {String password = text;});
                           },
                           obscureText: _obscureText1,
                           decoration: InputDecoration(
@@ -197,7 +203,8 @@ class _Register extends State<Register> {
                         SizedBox(
                           width: double.infinity, // Ajusta el ancho para ocupar todo el espacio disponible
                           child: buildButton('Sign Up', () async {
-
+                            
+                            await postUser();
                           }),
                         ),
                         const SizedBox(height: 20),
