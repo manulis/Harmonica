@@ -23,6 +23,7 @@ class _Register extends State<Register> {
   final TextEditingController _NameController = TextEditingController();
   final TextEditingController _EmailController = TextEditingController();
   final TextEditingController _PhoneController = TextEditingController();
+  final TextEditingController _PasswordController = TextEditingController();
 
   void _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -181,11 +182,8 @@ class _Register extends State<Register> {
                               ),
                             ),
                             TextFormField(
-                              onChanged: (text) {
-                                setState(() {
-                                  password = text;
-                                });
-                              },
+                              controller: _PasswordController,
+                              
                               obscureText: _obscureText1,
                               decoration: InputDecoration(
                                 labelText: 'Create Password',
@@ -209,11 +207,14 @@ class _Register extends State<Register> {
                                   },
                                 ),
                               ),
+                               onChanged: (text) {
+                                setState(() {
+                                  password = text;
+                                });
+                              },
                             ),
                             TextFormField(
-                              onChanged: (text) {
-                                setState(() {});
-                              },
+                              
                               obscureText: _obscureText2,
                               decoration: InputDecoration(
                                 labelText: 'Confirm Password',
@@ -237,6 +238,9 @@ class _Register extends State<Register> {
                                   },
                                 ),
                               ),
+                              onChanged: (text) {
+                                setState(() {});
+                              },
                             ),
                             const SizedBox(height: 30),
                             SizedBox(

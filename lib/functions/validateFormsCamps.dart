@@ -2,17 +2,45 @@ import 'package:email_validator/email_validator.dart';
 
 //Funciones de validación
 
-bool emailValidate(String? email){
-  bool isValid = EmailValidator.validate(email!);
+bool emailValidate(String? value){
+  bool isValid = EmailValidator.validate(value!);
   return isValid;
 }
 
-bool phoneValidate(String? phone){
-  if(phone == ''){
+bool phoneValidate(String? value){
+  if(value == ''){
     return true;
   }
   RegExp regExp = RegExp(r'^\d{9}$');
-  return regExp.hasMatch(phone!);
+  return regExp.hasMatch(value!);
+}
+
+bool passwordValidate(String? value){
+    
+  value = value!;
+
+  if (value.length < 8) {
+    return false;
+  }
+
+  if (!value.contains(RegExp(r'[a-z]'))) {
+    return false;
+  }
+
+  if (!value.contains(RegExp(r'[A-Z]'))) {
+    return false;
+  }
+
+  if (!value.contains(RegExp(r'[0-9]'))) {
+    return false;
+  }
+
+  if(value == ''){
+    return false;
+  }
+
+  return true;
+
 }
 
 
@@ -38,4 +66,10 @@ String? FocusName(String? value) {
     return 'The field is required';
   }
   return null;
+}
+
+String? FocusPassword(String? value){
+
+
+
 }
