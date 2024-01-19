@@ -13,6 +13,8 @@ dependencies:
   intl: ^0.17.0
   supabase_flutter: ^2.0.1
   custom_route_transitions_nan: ^0.0.3
+  email_validator: '^2.1.16'
+  
 
 dev_dependencies:
   flutter_test:

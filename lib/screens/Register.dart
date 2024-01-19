@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:harmonica/functions/validateFormsCamps.dart';
 import 'package:harmonica/widgets.dart';
 import 'package:harmonica/navigator.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
@@ -144,7 +145,7 @@ class _Register extends State<Register> {
                           ),
                           onChanged: (text) {
                             setState(() {
-                              phone = text;
+                              phone = '+34 ' + text;
                             });
                           },
                         ),
@@ -225,13 +226,16 @@ class _Register extends State<Register> {
                           child: buildButton('Sign Up', () async {
                             String birthDate = DateFormat('dd/MM/yyyy').format(_selectedDate);
                             UserObject.User user = UserObject.User(name, email, phone, birthDate, password, [''], ['']);
-                            print(user);
-                            bool registerInfo = await userHandler.postUser(user);
-                            if (registerInfo) {
-                              PopUp(context, 'Registrado', 'Registrado con exito');
-                            } else {
-                              PopUp(context, 'Error', 'Parece que hubo un error');
+                            if(emailValidate(email) && phoneValidate(phone)){
+                              print(user);
+                              bool registerInfo = await userHandler.postUser(user);
+                              if (registerInfo) {
+                                PopUp(context, 'Registrado', 'Registrado con exito');
+                              } else {
+                                PopUp(context, 'Error', 'Parece que hubo un error');
+                              }
                             }
+                          
                           }),
                         ),
                         const SizedBox(height: 20),
