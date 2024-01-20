@@ -19,11 +19,13 @@ class _Register extends State<Register> {
   String email = '';
   String phone = '';
   String password = '';
+  String Retypepassword = '';
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _NameController = TextEditingController();
   final TextEditingController _EmailController = TextEditingController();
   final TextEditingController _PhoneController = TextEditingController();
   final TextEditingController _PasswordController = TextEditingController();
+  final TextEditingController _RetypePasswordController = TextEditingController();
 
   void _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -37,6 +39,10 @@ class _Register extends State<Register> {
       });
     }
   }
+   String? passEq(String? value){
+      if(value!=password){return 'The password are not equal';}
+      return null;
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +189,7 @@ class _Register extends State<Register> {
                             ),
                             TextFormField(
                               controller: _PasswordController,
-                              
+                              validator: FocusPassword,
                               obscureText: _obscureText1,
                               decoration: InputDecoration(
                                 labelText: 'Create Password',
@@ -214,7 +220,8 @@ class _Register extends State<Register> {
                               },
                             ),
                             TextFormField(
-                              
+                              controller: _RetypePasswordController,
+                              validator: passEq,
                               obscureText: _obscureText2,
                               decoration: InputDecoration(
                                 labelText: 'Confirm Password',
@@ -239,7 +246,9 @@ class _Register extends State<Register> {
                                 ),
                               ),
                               onChanged: (text) {
-                                setState(() {});
+                                setState(() {
+                                  Retypepassword = text;
+                                });
                               },
                             ),
                             const SizedBox(height: 30),
@@ -249,7 +258,8 @@ class _Register extends State<Register> {
                                 String birthDate = DateFormat('dd/MM/yyyy').format(_selectedDate);
                                 UserObject.User user = UserObject.User(name, email, phone, birthDate, password, [''], ['']);
                                 print(email);
-                                if(emailValidate(email) && phoneValidate(user.phone) && name.isNotEmpty && password.isNotEmpty){
+                                if(emailValidate(email) && phoneValidate(user.phone) && name.isNotEmpty && PasswordValidate.GoodPassword(password) && password==Retypepassword){
+                                  
                                   print(user);
                                   bool registerInfo = await userHandler.postUser(user);
                                   if (registerInfo) {
@@ -258,7 +268,7 @@ class _Register extends State<Register> {
                                   if(!registerInfo) {
                                     PopUp(context, 'Error', 'Parece que hubo un error');
                                   }
-                                }
+                                } 
                               }),
                             ),
                             const SizedBox(height: 20),
