@@ -39,10 +39,11 @@ class _Register extends State<Register> {
       });
     }
   }
-   String? passEq(String? value){
-      if(value!=password){return 'The password are not equal';}
-      return null;
-    }
+
+  String? passEq(String? value){
+    if(value!=password){return 'The password are not equal';}
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -254,21 +255,18 @@ class _Register extends State<Register> {
                             const SizedBox(height: 30),
                             SizedBox(
                               child: buildButton('Sign Up', () async {
-                                _save();
+                                
                                 String birthDate = DateFormat('dd/MM/yyyy').format(_selectedDate);
                                 UserObject.User user = UserObject.User(name, email, phone, birthDate, password, [''], ['']);
                                 print(email);
                                 if(emailValidate(email) && phoneValidate(user.phone) && name.isNotEmpty && PasswordValidate.GoodPassword(password) && password==Retypepassword){
-                                  
                                   print(user);
-                                  bool registerInfo = await userHandler.postUser(user);
-                                  if (registerInfo) {
-                                    PopUp(context, 'Registrado', 'Registrado con exito');
-                                  }
-                                  if(!registerInfo) {
-                                    PopUp(context, 'Error', 'Parece que hubo un error');
-                                  }
-                                } 
+                                  bool registerInfo = await userHandler.postUser(user, context);
+                                  _save();
+                                  print(registerInfo); 
+                                }else{
+                                  _save();
+                                }
                               }),
                             ),
                             const SizedBox(height: 20),

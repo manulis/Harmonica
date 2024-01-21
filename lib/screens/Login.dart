@@ -127,7 +127,7 @@ class _LoginState extends State<Login> {
                         ),
                         const SizedBox(height: 20),
                         buildButton('Sign In', () async {
-                          await userHandler.getUser();
+                          
                         }),
                       ],
                     ),
