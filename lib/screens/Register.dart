@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:harmonica/functions/validateFormsCamps.dart';
-import 'package:harmonica/widgets.dart';
-import 'package:harmonica/navigator.dart';
+import 'package:harmonica/widgets/Generic_widgets.dart';
+import 'package:harmonica/functions/navigator.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
 import 'package:intl/intl.dart';
 import 'package:harmonica/objects/User.dart' as UserObject;
@@ -255,15 +255,16 @@ class _Register extends State<Register> {
                             const SizedBox(height: 30),
                             SizedBox(
                               child: buildButton('Sign Up', () async {
-                                
                                 String birthDate = DateFormat('dd/MM/yyyy').format(_selectedDate);
-                                UserObject.User user = UserObject.User(name, email, phone, birthDate, password, [''], ['']);
+                                UserObject.User user = UserObject.User(name, email, phone, birthDate, password, '' , [''] , ['']);
                                 print(email);
                                 if(emailValidate(email) && phoneValidate(user.phone) && name.isNotEmpty && PasswordValidate.GoodPassword(password) && password==Retypepassword){
                                   print(user);
+                                  
                                   bool registerInfo = await userHandler.postUser(user, context);
                                   _save();
                                   print(registerInfo); 
+                                  
                                 }else{
                                   _save();
                                 }

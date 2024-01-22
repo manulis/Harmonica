@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:harmonica/widgets.dart';
-import 'package:harmonica/navigator.dart';
+import 'package:harmonica/widgets/Generic_widgets.dart';
+import 'package:harmonica/functions/navigator.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
 
 class Login extends StatefulWidget {
