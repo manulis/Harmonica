@@ -6,6 +6,7 @@ import 'package:harmonica/functions/databasePetitions.dart';
 import 'package:intl/intl.dart';
 import 'package:harmonica/objects/User.dart' as UserObject;
 
+
 class Register extends StatefulWidget {
   @override
   State<Register> createState() => _Register();
@@ -14,6 +15,7 @@ class Register extends StatefulWidget {
 class _Register extends State<Register> {
   bool _obscureText1 = true;
   bool _obscureText2 = true;
+  bool _loadinSpinner = false;
   DateTime _selectedDate = DateTime.now();
   String name = '';
   String email = '';
@@ -69,7 +71,7 @@ class _Register extends State<Register> {
           body: SingleChildScrollView(
             child: Container(
               padding: const EdgeInsets.all(15),
-              child: Column(
+              child:  Column(
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
@@ -79,7 +81,6 @@ class _Register extends State<Register> {
                       borderRadius: BorderRadius.circular(32),
                     ),
                     child: Column(
-                     
                       children: [
                         const SizedBox(height: 20),
                         Row(
@@ -100,6 +101,7 @@ class _Register extends State<Register> {
                             const SizedBox(width: 50),
                           ],
                         ),
+                        
                         Form(
                         key: _formKey,
                         child:
@@ -107,66 +109,36 @@ class _Register extends State<Register> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             const SizedBox(height: 15),
-                            TextFormField(
+                            GenericTextField(
                               controller: _NameController,
                               validator: FocusName,
-                              decoration:  const InputDecoration(
-                                labelText: 'User Name',
-                                labelStyle:  TextStyle(
-                                    color: Color.fromARGB(255, 0, 0, 0),
-                                    fontStyle: FontStyle.italic,
-                                    fontSize: 16),
-                                hintText: 'Write your name',
-                                hintStyle:  TextStyle(
-                                    color: Color.fromARGB(255, 172, 172, 172),
-                                    fontStyle: FontStyle.italic,
-                                    fontSize: 16),
-                              ),
+                              labelText: 'User Name',
+                              hintText: 'Write your User Name',
+                              suffixIcon: Icons.person,
                               onChanged: (text) {
                                 setState(() {
                                   name = text;
                                 });
                               },
                             ),
-                            TextFormField(
+                            GenericTextField(
                               controller: _EmailController,
                               validator: FocusEmail,
-                              decoration: const InputDecoration(
-                                
-                                labelText: 'Email',
-                                labelStyle: TextStyle(
-                                    color: Color.fromARGB(255, 0, 0, 0),
-                                    fontStyle: FontStyle.italic,
-                                    fontSize: 16),
-                                hintText: 'Write your Email',
-                                suffixIcon: Icon(Icons.email),
-                                hintStyle: TextStyle(
-                                    color: Color.fromARGB(255, 172, 172, 172),
-                                    fontStyle: FontStyle.italic,
-                                    fontSize: 16),
-                              ),
+                              labelText: 'Email',
+                              hintText: 'Write your Email',
+                              suffixIcon: Icons.email,
                               onChanged: (text) {
                                 setState(() {
                                   email = text;
                                 });
                               },
                             ),
-                            TextFormField(
+                            GenericTextField(
                               controller: _PhoneController,
                               validator: FocusPhone,
-                              decoration: const InputDecoration(
-                                labelText: 'Phone number',
-                                labelStyle: TextStyle(
-                                    color: Color.fromARGB(255, 0, 0, 0),
-                                    fontStyle: FontStyle.italic,
-                                    fontSize: 16),
-                                hintText: 'Write your Phone number',
-                                suffixIcon: Icon(Icons.phone),
-                                hintStyle: TextStyle(
-                                    color: Color.fromARGB(255, 172, 172, 172),
-                                    fontStyle: FontStyle.italic,
-                                    fontSize: 16),
-                              ),
+                              labelText: 'Phone number',
+                              hintText: 'Write your Phone number',
+                              suffixIcon: Icons.phone,
                               onChanged: (text) {
                                 setState(() {
                                   phone = text;
@@ -188,64 +160,30 @@ class _Register extends State<Register> {
                                 ),
                               ),
                             ),
-                            TextFormField(
+                            CustomPasswordTextField(
                               controller: _PasswordController,
                               validator: FocusPassword,
                               obscureText: _obscureText1,
-                              decoration: InputDecoration(
-                                labelText: 'Create Password',
-                                labelStyle: const TextStyle(
-                                    color: Color.fromARGB(255, 0, 0, 0),
-                                    fontStyle: FontStyle.italic,
-                                    fontSize: 16),
-                                hintText: 'Type a Password',
-                                hintStyle: const TextStyle(
-                                    color: Color.fromARGB(255, 172, 172, 172),
-                                    fontStyle: FontStyle.italic,
-                                    fontSize: 16),
-                                suffixIcon: IconButton(
-                                  icon: Icon(_obscureText1
-                                      ? Icons.visibility
-                                      : Icons.visibility_off),
-                                  onPressed: () {
-                                    setState(() {
-                                      _obscureText1 = !_obscureText1;
-                                    });
-                                  },
-                                ),
-                              ),
-                               onChanged: (text) {
+                              onToggleObscureText: (bool value) {
+                                setState(() {
+                                  _obscureText1 = value;
+                                });
+                              },
+                              onChanged: (text) {
                                 setState(() {
                                   password = text;
                                 });
                               },
                             ),
-                            TextFormField(
+                            CustomPasswordTextField(
                               controller: _RetypePasswordController,
                               validator: passEq,
-                              obscureText: _obscureText2,
-                              decoration: InputDecoration(
-                                labelText: 'Confirm Password',
-                                labelStyle: const TextStyle(
-                                    color: Color.fromARGB(255, 0, 0, 0),
-                                    fontStyle: FontStyle.italic,
-                                    fontSize: 16),
-                                hintText: 'Retype your Password',
-                                hintStyle: const TextStyle(
-                                    color: Color.fromARGB(255, 172, 172, 172),
-                                    fontStyle: FontStyle.italic,
-                                    fontSize: 16),
-                                suffixIcon: IconButton(
-                                  icon: Icon(_obscureText2
-                                      ? Icons.visibility
-                                      : Icons.visibility_off),
-                                  onPressed: () {
-                                    setState(() {
-                                      _obscureText2 = !_obscureText2;
-                                    });
-                                  },
-                                ),
-                              ),
+                              obscureText: _obscureText1,
+                              onToggleObscureText: (bool value) {
+                                setState(() {
+                                  _obscureText2 = value;
+                                });
+                              },
                               onChanged: (text) {
                                 setState(() {
                                   Retypepassword = text;
@@ -254,14 +192,24 @@ class _Register extends State<Register> {
                             ),
                             const SizedBox(height: 30),
                             SizedBox(
-                              child: buildButton('Sign Up', () async {
+                              child: 
+                              _loadinSpinner ? spinkit :
+                              buildButton('Sign Up', () async {
                                 String birthDate = DateFormat('dd/MM/yyyy').format(_selectedDate);
+                                print(_NameController.selection);
                                 UserObject.User user = UserObject.User(name, email, phone, birthDate, password, '' , [''] , ['']);
-                                print(email);
-                                if(emailValidate(email) && phoneValidate(user.phone) && name.isNotEmpty && PasswordValidate.GoodPassword(password) && password==Retypepassword){
+                                if(emailValidate(user.email) && phoneValidate(user.phone) && name.isNotEmpty && PasswordValidate.GoodPassword(password) && password==Retypepassword){
                                   print(user);
-                                  
                                   bool registerInfo = await userHandler.postUser(user, context);
+                                  setState(() {
+                                    _loadinSpinner=true;
+                                  });
+                                  if(registerInfo){
+                                    RegistrationSuccessPopup(context, () {nav('Login', context);});
+                                  }
+                                  setState(() {
+                                    _loadinSpinner = false;
+                                  });
                                   _save();
                                   print(registerInfo); 
                                   
@@ -299,3 +247,24 @@ class _Register extends State<Register> {
   }
 
 }
+
+ void RegistrationSuccessPopup(BuildContext context, VoidCallback onContinuePressed) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Icon(Icons.check_circle, color: Colors.green, size: 50),
+          content: Text("¡Registro exitoso!", textAlign: TextAlign.center),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); 
+                onContinuePressed(); 
+              },
+              child: Text("Continuar"),
+            ),
+          ],
+        );
+      },
+    );
+  }
