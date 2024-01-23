@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:harmonica/functions/sharedPrefs.dart';
 import 'package:harmonica/functions/validateFormsCamps.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
 import 'package:harmonica/functions/navigator.dart';
@@ -28,7 +29,7 @@ class _Register extends State<Register> {
   final TextEditingController _PhoneController = TextEditingController();
   final TextEditingController _PasswordController = TextEditingController();
   final TextEditingController _RetypePasswordController = TextEditingController();
-
+  
   void _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -51,13 +52,13 @@ class _Register extends State<Register> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color.fromRGBO(40, 4, 64, 1),
+      backgroundColor: const  Color.fromRGBO(40, 4, 64, 1),
       body: SafeArea(
         child: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
               SliverAppBar(
-                backgroundColor: Color.fromRGBO(40, 4, 64, 1),
+                backgroundColor: const Color.fromRGBO(40, 4, 64, 1),
                 expandedHeight: screenHeight / 4,
                 floating: false,
                 pinned: false,
@@ -160,9 +161,11 @@ class _Register extends State<Register> {
                                 ),
                               ),
                             ),
-                            CustomPasswordTextField(
+                            PasswordTextField(
                               controller: _PasswordController,
                               validator: FocusPassword,
+                              labelText: 'Create Password',
+                              hintText: 'Type a Password',
                               obscureText: _obscureText1,
                               onToggleObscureText: (bool value) {
                                 setState(() {
@@ -175,10 +178,12 @@ class _Register extends State<Register> {
                                 });
                               },
                             ),
-                            CustomPasswordTextField(
+                            PasswordTextField(
                               controller: _RetypePasswordController,
                               validator: passEq,
-                              obscureText: _obscureText1,
+                              labelText: 'Confirm Password',
+                              hintText: 'Retype the Password',
+                              obscureText: _obscureText2,
                               onToggleObscureText: (bool value) {
                                 setState(() {
                                   _obscureText2 = value;
@@ -197,22 +202,31 @@ class _Register extends State<Register> {
                               buildButton('Sign Up', () async {
                                 String birthDate = DateFormat('dd/MM/yyyy').format(_selectedDate);
                                 print(_NameController.selection);
-                                UserObject.User user = UserObject.User(name, email, phone, birthDate, password, '' , [''] , ['']);
+                                
+                                UserObject.User user = UserObject.User(name, email, phone, birthDate, password , [''] , ['']);
                                 if(emailValidate(user.email) && phoneValidate(user.phone) && name.isNotEmpty && PasswordValidate.GoodPassword(password) && password==Retypepassword){
                                   print(user);
-                                  bool registerInfo = await userHandler.postUser(user, context);
                                   setState(() {
-                                    _loadinSpinner=true;
+                                  _loadinSpinner=true;
                                   });
-                                  if(registerInfo){
-                                    RegistrationSuccessPopup(context, () {nav('Login', context);});
-                                  }
-                                  setState(() {
+                                  bool registerInfo = await userHandler.postUser(user, context);
+                                     setState(() {
                                     _loadinSpinner = false;
                                   });
                                   _save();
+                                  if(registerInfo){
+                                    // ignore: use_build_context_synchronously
+                                    GenericPopUpWithIcon(context, () async{
+                                      try{
+                                        await saveData(user, 'UserPrefs');
+                                        nav('Home', context);
+                                        print('Almacenado correctamente');
+                                      }on Exception {
+                                        print('Error al almacenar');
+                                      }
+                                    }, Icon(Icons.check_circle, color: Colors.green, size: 50), 'Registred!');
+                                  }
                                   print(registerInfo); 
-                                  
                                 }else{
                                   _save();
                                 }
@@ -247,24 +261,3 @@ class _Register extends State<Register> {
   }
 
 }
-
- void RegistrationSuccessPopup(BuildContext context, VoidCallback onContinuePressed) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Icon(Icons.check_circle, color: Colors.green, size: 50),
-          content: Text("¡Registro exitoso!", textAlign: TextAlign.center),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); 
-                onContinuePressed(); 
-              },
-              child: Text("Continuar"),
-            ),
-          ],
-        );
-      },
-    );
-  }

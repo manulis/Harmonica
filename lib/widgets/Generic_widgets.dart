@@ -51,14 +51,14 @@ void GenericPopUp(BuildContext context, String title, String content) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text(title),
+        title: Text(title, textAlign: TextAlign.center,),
         content: Text(content),
         actions: <Widget>[
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text('Close'),
+            child: const Text('Close'),
           ),
         ],
       );
@@ -66,6 +66,27 @@ void GenericPopUp(BuildContext context, String title, String content) {
   );
 }
 
+
+void GenericPopUpWithIcon(BuildContext context, VoidCallback onContinuePressed, Icon icon, String content) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: icon,
+        content: Text(content, textAlign:TextAlign.center,),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); 
+              onContinuePressed(); 
+            },
+            child: const Text("Continuar"),
+          ),
+        ],
+      );
+    },
+  );
+}
 
 //Form widgets
 class GenericTextField extends StatefulWidget {
@@ -115,17 +136,21 @@ class _GenericTextFieldState extends State<GenericTextField> {
   }
 }
 
-class CustomPasswordTextField extends StatelessWidget {
+class PasswordTextField extends StatelessWidget {
   final TextEditingController controller;
   final String? Function(String?) validator;
+  final String labelText;
+  final String hintText;
   final bool obscureText;
   final void Function(bool) onToggleObscureText;
   final void Function(String) onChanged;
 
-  const CustomPasswordTextField({
+  const PasswordTextField({
     Key? key,
     required this.controller,
     required this.validator,
+    required this.labelText,
+    required this.hintText,
     required this.obscureText,
     required this.onToggleObscureText,
     required this.onChanged,
@@ -138,13 +163,13 @@ class CustomPasswordTextField extends StatelessWidget {
       validator: validator,
       obscureText: obscureText,
       decoration: InputDecoration(
-        labelText: 'Create Password',
+        labelText: labelText,
         labelStyle: const TextStyle(
           color: Color.fromARGB(255, 0, 0, 0),
           fontStyle: FontStyle.italic,
           fontSize: 16,
         ),
-        hintText: 'Type a Password',
+        hintText: hintText,
         hintStyle: const TextStyle(
           color: Color.fromARGB(255, 172, 172, 172),
           fontStyle: FontStyle.italic,
@@ -174,3 +199,7 @@ final spinkit = SpinKitFadingFour(
     );
   },
 );
+
+
+//Navbar widget
+
