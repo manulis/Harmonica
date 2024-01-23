@@ -4,6 +4,7 @@ import 'package:harmonica/widgets/Generic_widgets.dart';
 import 'package:harmonica/functions/navigator.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
 
+
 class Login extends StatefulWidget {
   @override
   State<Login> createState() => _LoginState();
@@ -132,9 +133,10 @@ class _LoginState extends State<Login> {
                               });
                               _save();
                               if(loginUser){
+                                
                                 nav('NavigatorBar', context);
                               }else{
-                                print('Pareca que hubo un error');
+                                print('Parece que hubo un error');
                               }
                             }),
                           ],

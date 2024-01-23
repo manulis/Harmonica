@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:harmonica/functions/sharedPrefs.dart';
 import 'package:harmonica/functions/validateFormsCamps.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
 import 'package:harmonica/functions/navigator.dart';
@@ -201,9 +200,8 @@ class _Register extends State<Register> {
                               _loadinSpinner ? spinkit :
                               buildButton('Sign Up', () async {
                                 String birthDate = DateFormat('dd/MM/yyyy').format(_selectedDate);
-                                print(_NameController.selection);
-                                
-                                UserObject.User user = UserObject.User(name, email, phone, birthDate, password , [''] , ['']);
+                                print(_NameController.selection); 
+                                UserObject.User user = UserObject.User(name, email, phone, birthDate, password);
                                 if(emailValidate(user.email) && phoneValidate(user.phone) && name.isNotEmpty && PasswordValidate.GoodPassword(password) && password==Retypepassword){
                                   print(user);
                                   setState(() {
@@ -217,13 +215,7 @@ class _Register extends State<Register> {
                                   if(registerInfo){
                                     // ignore: use_build_context_synchronously
                                     GenericPopUpWithIcon(context, () async{
-                                      try{
-                                        await saveData(user, 'UserPrefs');
-                                        nav('Home', context);
-                                        print('Almacenado correctamente');
-                                      }on Exception {
-                                        print('Error al almacenar');
-                                      }
+                                      nav('Home', context);
                                     }, Icon(Icons.check_circle, color: Colors.green, size: 50), 'Registred!');
                                   }
                                   print(registerInfo); 
