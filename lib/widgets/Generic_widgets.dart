@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:harmonica/screens/Home.dart';
 
 //Cabecera con Logo:
 Widget headLogo(double height){
@@ -201,5 +202,4 @@ final spinkit = SpinKitFadingFour(
 );
 
 
-//Navbar widget
 

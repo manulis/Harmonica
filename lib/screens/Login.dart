@@ -132,11 +132,10 @@ class _LoginState extends State<Login> {
                               });
                               _save();
                               if(loginUser){
-                                nav('Home', context);
+                                nav('NavigatorBar', context);
                               }else{
                                 print('Pareca que hubo un error');
                               }
-                              
                             }),
                           ],
                         ),
