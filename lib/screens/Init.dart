@@ -18,32 +18,20 @@ class _Init extends State<Init> {
     loadUser();
   }
 
-  Future<void> loadUser() async {
+  loadUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? jsonUser = prefs.getString('UserPrefs');
-    print('JSON desde SharedPreferences: $jsonUser');
-
     if (jsonUser != null) {
       try {
-        Map<String, dynamic> jsonMap = json.decode(jsonUser);
-        UserObject.User user = UserObject.User.fromJson(jsonMap);
-        print('Usuario decodificado: $user');
-        try {
-          bool login = await userHandler.getUser(user.name, user.password, context);
-          if (login) {
-            nav('NavigatorBar', context);
-          }
-        } on Exception catch (e) {
-          print('Error durante el login: $e');
-        }
-        print('Usuario después del login: $user');
+      
+        UserObject.User user = UserObject.User.fromJson(json.decode(jsonUser));
+        print('Usuario cargado correctamente: $user');
       } catch (e) {
         print('Error al decodificar el JSON: $e');
       }
     } else {
       print('La cadena JSON es nula');
     }
-    print('Fin de loadUser');
   }
 
   @override

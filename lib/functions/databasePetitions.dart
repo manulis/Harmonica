@@ -84,9 +84,8 @@ class userHandler{
       );
       print(user);
       try {
-        await signIn(user.email, password);
+        await signIn(user.email, user.password);
         await saveData(user, 'UserPrefs');
-        
         return true;
       }on Exception catch (e){
         GenericPopUpWithIcon(context, () { }, Icon(Icons.error, color:Colors.red), 'Invalid Credentials');
@@ -99,7 +98,15 @@ class userHandler{
 
 }
 
-saveData(Object object, String keyPrefs) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setString(keyPrefs, json.encode(object));
+saveData(UserObject.User user, String keyPrefs) async {
+  try{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(keyPrefs, json.encode(user.toJson()));
+    print('Datos guardados correctamente en $keyPrefs');
+  }on Exception catch (e){
+
+    print(e);
+
+  }
 }
+
