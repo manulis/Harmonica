@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:harmonica/functions/navigator.dart';
 import 'package:harmonica/screens/Home.dart';
-class NavigationExample extends StatefulWidget {
-  const NavigationExample({super.key});
 
+class NavigatorBar extends StatefulWidget {
+  const NavigatorBar({super.key});
   @override
-  State<NavigationExample> createState() => _NavigationExampleState();
+  State<NavigatorBar> createState() => _NavigatorBarState();
 }
 
-class _NavigationExampleState extends State<NavigationExample> {
+class _NavigatorBarState extends State<NavigatorBar> {
   int currentPageIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -24,32 +23,23 @@ class _NavigationExampleState extends State<NavigationExample> {
         indicatorColor: Color.fromRGBO(102, 61, 168, 1),
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
-          NavigationDestination(
-            selectedIcon: Icon(Icons.home),
-            icon: Icon(Icons.home_outlined),
-            label: '',
-          ),
-          NavigationDestination(
-            icon:  Icon(Icons.search),
-            label: '',
-          ),
-          NavigationDestination(
-            icon:  Icon(Icons.add),
-            
-            label: '',
-          ),
-          NavigationDestination(
-            
-            icon: Icon(Icons.person),
-            label: '',
-          ),
+          NavigationDestination(selectedIcon: Icon(Icons.home),icon: Icon(Icons.home_outlined),label: '',),
+          NavigationDestination(icon:  Icon(Icons.search),label: '',),
+          NavigationDestination(icon:  Icon(Icons.add),label: '',),
+          NavigationDestination(icon: Icon(Icons.person),label: '',),
+          NavigationDestination(icon: Icon(Icons.message), label: ''),
         ],
       ),
       body: <Widget>[
         /// Home page
         Home(),
+        /// Search page
         Home(),
+        /// Add page
         Home(),
+        /// Profile page
+        Home(),
+        /// Message page
         Home(),
       ][currentPageIndex],
     );

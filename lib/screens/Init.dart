@@ -5,12 +5,16 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:harmonica/objects/User.dart' as UserObject;
 import 'package:harmonica/functions/databasePetitions.dart';
+
+
 class Init extends StatefulWidget {
   @override
   State<Init> createState() => _Init();
 }
 
 class _Init extends State<Init> {
+
+  bool _loadingPage = true;
 
   @override
   void initState() {
@@ -23,28 +27,36 @@ class _Init extends State<Init> {
     String? jsonUser = prefs.getString('UserPrefs');
     if (jsonUser != null) {
       try {
-      
         UserObject.User user = UserObject.User.fromJson(json.decode(jsonUser));
+        await userHandler.signIn(user.email, user.password);
+        nav('NavigatorBar', context); 
         print('Usuario cargado correctamente: $user');
       } catch (e) {
-        print('Error al decodificar el JSON: $e');
+        GenericPopUp(context, 'Error', 'Parece que hubo un error');
+        print('Error: $e');
       }
     } else {
       print('La cadena JSON es nula');
     }
+    setState(() {
+      _loadingPage = false;
+    });
+
   }
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
+     return Scaffold(
       backgroundColor: const Color.fromRGBO(40, 4, 64, 1),
       body: SingleChildScrollView(
         child: Container(
           child: Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 100),
-              child: Column(
+              child: 
+              _loadingPage ? loadingPage() :
+              Column(
                 children: [
                   Image.asset("assets/images/LogoPositivo.png", width: screenWidth,),
                   const SizedBox(height: 50),

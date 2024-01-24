@@ -1,12 +1,10 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
 import 'package:harmonica/objects/User.dart' as UserObject;
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:harmonica/main.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:harmonica/functions/sharedPreferencesOperations.dart';
 
 class userHandler{
 
@@ -85,28 +83,29 @@ class userHandler{
       print(user);
       try {
         await signIn(user.email, user.password);
-        await saveData(user, 'UserPrefs');
-        return true;
+        try{
+          await saveData(user, 'UserPrefs');
+          return true;
+        }on Exception catch (e){
+          print(e);
+          GenericPopUp(context, 'Error', 'Parece que hubo un error');
+          return false;
+        }
       }on Exception catch (e){
         GenericPopUpWithIcon(context, () { }, Icon(Icons.error, color:Colors.red), 'Invalid Credentials');
         print(e);
       }
-
     }
     return false;
   }
 
-}
+  static Future<void> logoutUser() async{
 
-saveData(UserObject.User user, String keyPrefs) async {
-  try{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(keyPrefs, json.encode(user.toJson()));
-    print('Datos guardados correctamente en $keyPrefs');
-  }on Exception catch (e){
-
-    print(e);
-
+    await deleteData();
+    
   }
+
 }
+
+
 

@@ -189,7 +189,7 @@ class PasswordTextField extends StatelessWidget {
 }
 
 
-//LoadingSpinner
+//Loading widgets
 final spinkit = SpinKitFadingFour(
   itemBuilder: (BuildContext context, int index) {
     return DecoratedBox(
@@ -203,3 +203,28 @@ final spinkit = SpinKitFadingFour(
 
 
 
+class loadingPage extends StatefulWidget{
+  @override
+  _loadingPage createState() => _loadingPage();
+}
+class _loadingPage extends State<loadingPage>{
+  @override
+  Widget build(BuildContext context){
+    final screenheight = MediaQuery.of(context).size.height;
+    return Container(
+      height: screenheight/2,
+      child:  
+      Padding(padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 100),
+      child: SpinKitWave(
+            itemBuilder: (BuildContext context, int index) {
+              return DecoratedBox(
+                decoration: BoxDecoration(
+                  color: index.isEven ? Colors.white : Color.fromRGBO(102, 61, 168, 1),
+                ),
+              );
+            },
+       ),
+      )
+    ); 
+  }
+}

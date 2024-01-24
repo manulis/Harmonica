@@ -15,7 +15,6 @@ nav(String ScreenName, context){
       Navigator.of(context).push(CupertinoPageRoute(builder: (BuildContext context){return Register();}));
       break;
     case 'NavigatorBar':
-      Navigator.of(context).push(CupertinoPageRoute(builder: (BuildContext context){return NavigationExample();}));
-
+      Navigator.of(context).push(CupertinoPageRoute(builder: (BuildContext context){return NavigatorBar();}));
   }
 }
