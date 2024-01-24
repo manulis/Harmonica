@@ -12,35 +12,43 @@ class _Home extends State<Home>{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-        appBar: AppBar(
+        appBar: AppBar(   
           centerTitle: true,
           title: AppbarTitles(context, 'Home'),
          leading: Padding(
-            padding: EdgeInsets.only(left: 10.0),
-            child: CircleAvatar(
-              radius: 20.0,
-              backgroundColor: Colors.transparent,
-              child: ClipOval(
-                child: Image.asset(
-                  'assets/images/Isotipo.png',
-                  width: 30.0, // Ajusta el tamaño según tus preferencias
-                  height: 30.0, // Ajusta el tamaño según tus preferencias
-                  fit: BoxFit.cover,
+            padding: EdgeInsets.only(left: 8.0),
+            child: GestureDetector(
+              onTap: () {
+                print('CircleAvatar clickeado');
+              },
+              child: CircleAvatar(
+                radius: 20.0,
+                backgroundColor: Colors.transparent,
+                child: ClipOval(
+                  child: Image.network(
+                    'https://img.freepik.com/foto-gratis/hombre-feliz-pie-playa_107420-9868.jpg?1',
+                    width: 30.0,
+                    height: 30.0,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
           ),
           actions: [
             IconButton(
+              iconSize: 30,
               onPressed: () {
                 
               },
-              icon: Icon(Icons.settings),
+              icon: Icon(Icons.settings, ),
             )
           ],
         ),
     
-        body: Column(
+        body: 
+        Column(
+          
         children: [   
           SingleChildScrollView(
 
