@@ -26,7 +26,7 @@ class _Home extends State<Home>{
                 backgroundColor: Colors.transparent,
                 child: ClipOval(
                   child: Image.network(
-                    'https://img.freepik.com/foto-gratis/hombre-feliz-pie-playa_107420-9868.jpg?1',
+                    'https://thumbs.dreamstime.com/b/retrato-de-un-joven-apuesto-y-sonriente-con-brazos-plegados-hombres-alegres-sonrientes-las-manos-cruzadas-aislados-en-estudio-172869765.jpg',
                     width: 30.0,
                     height: 30.0,
                     fit: BoxFit.cover,

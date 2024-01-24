@@ -32,16 +32,19 @@ class _Init extends State<Init> {
         Navigator.of(context).pop();
         nav('NavigatorBar', context); 
         print('Usuario cargado correctamente: $user');
+        
       } catch (e) {
         GenericPopUp(context, 'Error', 'Parece que hubo un error');
         print('Error: $e');
+        setState(() {_loadingPage = false;});
+
       }
     } else {
       print('La cadena JSON es nula');
+      setState(() {_loadingPage = false;});
+      
     }
-    setState(() {
-      _loadingPage = false;
-    });
+   
   }
 
   @override
