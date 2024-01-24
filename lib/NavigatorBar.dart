@@ -27,7 +27,7 @@ class _NavigatorBarState extends State<NavigatorBar> {
           NavigationDestination(icon:  Icon(Icons.search),label: '',),
           NavigationDestination(icon:  Icon(Icons.add),label: '',),
           NavigationDestination(icon: Icon(Icons.person),label: '',),
-          NavigationDestination(icon: Icon(Icons.message), label: ''),
+          NavigationDestination(icon: Badge(label: Text('2'),child: Icon(Icons.messenger_sharp),),label: '',),
         ],
       ),
       body: <Widget>[

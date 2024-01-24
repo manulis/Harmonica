@@ -100,10 +100,16 @@ class userHandler{
   }
 
   static Future<void> logoutUser() async{
-
     await deleteData();
-    
+    await supabase.auth.signOut();
   }
+
+}
+
+class songHandler {
+
+
+
 
 }
 

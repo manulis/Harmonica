@@ -1,6 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
 //Funciones de validación
 bool emailValidate(String? value) => EmailValidator.validate(value!);
 bool phoneValidate(String? value) => value == '' ? true : RegExp(r'^\d{9}$').hasMatch(value!);

@@ -16,6 +16,20 @@ Widget headLogo(double height){
   );
 }
 
+//Textos
+Widget AppbarTitles(context, String title){
+ return Text(
+      title,
+      textAlign: TextAlign.center,
+      style: const TextStyle(
+        color: Colors.black,
+        fontSize: 30,
+        fontWeight: FontWeight.bold,  
+    ),
+  );
+
+}
+
 //Botones:
 Widget buildButton(String text, VoidCallback onPressed) {
   return TextButton(
@@ -228,3 +242,4 @@ class _loadingPage extends State<loadingPage>{
     ); 
   }
 }
+

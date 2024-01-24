@@ -29,6 +29,7 @@ class _Init extends State<Init> {
       try {
         UserObject.User user = UserObject.User.fromJson(json.decode(jsonUser));
         await userHandler.signIn(user.email, user.password);
+        Navigator.of(context).pop();
         nav('NavigatorBar', context); 
         print('Usuario cargado correctamente: $user');
       } catch (e) {
@@ -41,7 +42,6 @@ class _Init extends State<Init> {
     setState(() {
       _loadingPage = false;
     });
-
   }
 
   @override
