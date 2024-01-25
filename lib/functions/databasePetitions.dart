@@ -72,6 +72,10 @@ class userHandler{
       return false;
     }
 
+    if(Response.isEmpty){
+      GenericPopUpWithIcon(context, () { }, const Icon(Icons.error, color:Colors.red), 'Invalid Credentials');
+    }
+
     if(Response.isNotEmpty){
       user = UserObject.User(
         name,
@@ -104,7 +108,15 @@ class userHandler{
 
 class songHandler {
 
-
+  static Future<List<Map<String, dynamic>>> getSong() async {
+    try{
+      final data =  await supabase.from("post").select('*');
+      return data;
+    }on Exception catch (e){
+      print("Error: ${e}");
+      return [];
+    }
+  }
 
 
 }

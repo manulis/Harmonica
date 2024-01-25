@@ -26,7 +26,6 @@ class _NavigatorBarState extends State<NavigatorBar> {
           NavigationDestination(selectedIcon: Icon(Icons.home),icon: Icon(Icons.home_outlined),label: '',),
           NavigationDestination(icon:  Icon(Icons.search),label: '',),
           NavigationDestination(icon:  Icon(Icons.add),label: '',),
-          NavigationDestination(icon: Icon(Icons.person),label: '',),
           NavigationDestination(icon: Badge(label: Text('2'),child: Icon(Icons.messenger_sharp),),label: '',),
         ],
       ),
@@ -36,8 +35,6 @@ class _NavigatorBarState extends State<NavigatorBar> {
         /// Search page
         Home(),
         /// Add page
-        Home(),
-        /// Profile page
         Home(),
         /// Message page
         Home(),

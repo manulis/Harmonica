@@ -20,15 +20,14 @@ class _Home extends State<Home>{
             padding: EdgeInsets.only(left: 8.0),
             child: GestureDetector(
               onTap: () {
-                print('CircleAvatar clickeado');
-                print("User");
+                print(userHandler.user.name);
               },
               child: CircleAvatar(
-                radius: 20.0,
+                radius: 30.0,
                 backgroundColor: Colors.transparent,
                 child: ClipOval(
                   child: Image.network(
-                    userHandler.user.image ?? 'https://www.hemomadrid.com/wp-content/uploads/2015/11/foto-generica.jpg',
+                    userHandler.user.image ?? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
                     width: 30.0,
                     height: 30.0,
                     fit: BoxFit.cover,
@@ -46,14 +45,44 @@ class _Home extends State<Home>{
               icon: Icon(Icons.settings, ),
             )
           ],
+
         ),
     
-        body: 
-        Column(
+        body: FutureBuilder<List<Map<String, dynamic>>>(
+        future:  songHandler.getSong(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: spinkit);
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error al obtener datos'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(child: Text('No hay datos disponibles'));
+          } else {
           
-        
-        children: [],
-      ), 
+            return CustomScrollView(
+              slivers: <Widget>[
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      final Post = snapshot.data![index];
+                      return InkWell(
+                        onTap: () {
+                          
+                        },
+                        child: ListTile(
+                          title: Text('${Post['Nombre']}'),
+                        ),
+                      );
+                    },
+                    childCount: snapshot.data!.length,
+                  ),
+                ),
+              ],
+            );
+          }
+        },
+      ),
+
     );
   }   
 }

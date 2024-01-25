@@ -202,16 +202,12 @@ class _Register extends State<Register> {
                                 String birthDate = DateFormat('dd/MM/yyyy').format(_selectedDate);
                                 print(_NameController.selection);
                                 
-                                 userHandler.user = UserObject.User(name, '' , email, phone, birthDate, password);
-                                if(emailValidate(userHandler.user.email) && phoneValidate(userHandler.user.phone) && name.isNotEmpty && PasswordValidate.GoodPassword(password) && password==Retypepassword){
+                                userHandler.user = UserObject.User(name, null , email, phone, birthDate, password);
+                                if(emailValidate(email) && phoneValidate(phone) && name.isNotEmpty && PasswordValidate.GoodPassword(password) && password==Retypepassword){
                                   print(userHandler.user);
-                                  setState(() {
-                                  _loadinSpinner=true;
-                                  });
+                                  setState(() {_loadinSpinner=true;});
                                   bool registerInfo = await userHandler.postUser(userHandler.user, context);
-                                     setState(() {
-                                    _loadinSpinner = false;
-                                  });
+                                  setState(() {_loadinSpinner = false;});
                                   _save();
                                   if(registerInfo){
                                     // ignore: use_build_context_synchronously
