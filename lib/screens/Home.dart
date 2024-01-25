@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
-
+import 'package:harmonica/objects/User.dart' as UserObject;
+import 'package:harmonica/functions/databasePetitions.dart';
 
 class Home extends StatefulWidget{
  @override
@@ -20,13 +21,14 @@ class _Home extends State<Home>{
             child: GestureDetector(
               onTap: () {
                 print('CircleAvatar clickeado');
+                print("User");
               },
               child: CircleAvatar(
                 radius: 20.0,
                 backgroundColor: Colors.transparent,
                 child: ClipOval(
                   child: Image.network(
-                    'https://thumbs.dreamstime.com/b/retrato-de-un-joven-apuesto-y-sonriente-con-brazos-plegados-hombres-alegres-sonrientes-las-manos-cruzadas-aislados-en-estudio-172869765.jpg',
+                    userHandler.user.image ?? 'https://www.hemomadrid.com/wp-content/uploads/2015/11/foto-generica.jpg',
                     width: 30.0,
                     height: 30.0,
                     fit: BoxFit.cover,
@@ -49,14 +51,8 @@ class _Home extends State<Home>{
         body: 
         Column(
           
-        children: [   
-          SingleChildScrollView(
-
-
-
-
-          ),
-        ],
+        
+        children: [],
       ), 
     );
   }   

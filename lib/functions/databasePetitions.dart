@@ -3,7 +3,7 @@ import 'package:harmonica/widgets/Generic_widgets.dart';
 import 'package:harmonica/objects/User.dart' as UserObject;
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:harmonica/main.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:harmonica/functions/sharedPreferencesOperations.dart';
 
 class userHandler{
@@ -11,6 +11,8 @@ class userHandler{
   static bool NameExists = false;
   static bool EmailExists = false;
   static bool PhoneExists = false;
+  
+  static UserObject.User user = UserObject.User('', '', '', '', '','');
 
   static Future<bool> postUser(UserObject.User user, context) async {
     try{
@@ -28,7 +30,7 @@ class userHandler{
     if(!NameExists && !EmailExists && !PhoneExists){
       try{
         await signUp(user.email, user.password);
-        await supabase.from('infoUsuarios').insert({'Nombre': user.name, 'Email': user.email, 'Telefono': user.phone, 'Fecha_nacimiento': user.birthDate});
+        await supabase.from('infoUsuarios').insert({'Nombre': user.name, 'Imagen': user.image ,'Email': user.email, 'Telefono': user.phone, 'Fecha_nacimiento': user.birthDate});
         await saveData(user, 'UserPrefs');
         return true;
       }on Exception catch (e){
@@ -58,41 +60,35 @@ class userHandler{
   }
   
   static Future<bool> getUser(String name, String password, context) async {
-    
     var Response = [];
     try {
+      print('Entra');
       Response = await supabase.from('infoUsuarios').select('*').eq('Nombre', name);
       print(Response);
+
     }on Exception catch (e){
       GenericPopUp(context, 'Error', 'It seems there was an error');
+      print(e);
       return false;
     }
 
-    if(Response.isEmpty){
-      GenericPopUpWithIcon(context, () { }, Icon(Icons.error, color: Colors.red,), 'Invalid credentials');
-    }
-  
     if(Response.isNotEmpty){
-      UserObject.User user = UserObject.User(
-        name, 
+      user = UserObject.User(
+        name,
+        Response[0]['Imagen'],
         Response[0]['Email'], 
         Response[0]['Telefono'], 
         Response[0]['Fecha_nacimiento'], 
         password
       );
+      
       print(user);
       try {
         await signIn(user.email, user.password);
-        try{
-          await saveData(user, 'UserPrefs');
-          return true;
-        }on Exception catch (e){
-          print(e);
-          GenericPopUp(context, 'Error', 'Parece que hubo un error');
-          return false;
-        }
+        await saveData(user, 'UserPrefs');
+        return true;
       }on Exception catch (e){
-        GenericPopUpWithIcon(context, () { }, Icon(Icons.error, color:Colors.red), 'Invalid Credentials');
+        GenericPopUpWithIcon(context, () { }, const Icon(Icons.error, color:Colors.red), 'Invalid Credentials');
         print(e);
       }
     }

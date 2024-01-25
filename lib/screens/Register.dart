@@ -200,14 +200,15 @@ class _Register extends State<Register> {
                               _loadinSpinner ? spinkit :
                               buildButton('Sign Up', () async {
                                 String birthDate = DateFormat('dd/MM/yyyy').format(_selectedDate);
-                                print(_NameController.selection); 
-                                UserObject.User user = UserObject.User(name, email, phone, birthDate, password);
-                                if(emailValidate(user.email) && phoneValidate(user.phone) && name.isNotEmpty && PasswordValidate.GoodPassword(password) && password==Retypepassword){
-                                  print(user);
+                                print(_NameController.selection);
+                                
+                                 userHandler.user = UserObject.User(name, '' , email, phone, birthDate, password);
+                                if(emailValidate(userHandler.user.email) && phoneValidate(userHandler.user.phone) && name.isNotEmpty && PasswordValidate.GoodPassword(password) && password==Retypepassword){
+                                  print(userHandler.user);
                                   setState(() {
                                   _loadinSpinner=true;
                                   });
-                                  bool registerInfo = await userHandler.postUser(user, context);
+                                  bool registerInfo = await userHandler.postUser(userHandler.user, context);
                                      setState(() {
                                     _loadinSpinner = false;
                                   });
@@ -215,7 +216,7 @@ class _Register extends State<Register> {
                                   if(registerInfo){
                                     // ignore: use_build_context_synchronously
                                     GenericPopUpWithIcon(context, () async{
-                                      nav('Home', context);
+                                      nav('NavigatorBar', context);
                                     }, Icon(Icons.check_circle, color: Colors.green, size: 50), 'Registred!');
                                   }
                                   print(registerInfo); 

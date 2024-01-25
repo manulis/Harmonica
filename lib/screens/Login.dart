@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:harmonica/functions/validateFormsCamps.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
 import 'package:harmonica/functions/navigator.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
@@ -133,7 +132,6 @@ class _LoginState extends State<Login> {
                               });
                               _save();
                               if(loginUser){
-                                
                                 nav('NavigatorBar', context);
                               }else{
                                 print('Parece que hubo un error');

@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:harmonica/objects/User.dart' as UserObject;
 import 'package:harmonica/functions/databasePetitions.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 
 class Init extends StatefulWidget {
@@ -28,23 +29,24 @@ class _Init extends State<Init> {
     if (jsonUser != null) {
       try {
         UserObject.User user = UserObject.User.fromJson(json.decode(jsonUser));
-        await userHandler.signIn(user.email, user.password);
-        Navigator.of(context).pop();
-        nav('NavigatorBar', context); 
-        print('Usuario cargado correctamente: $user');
+
+        bool login = await userHandler.getUser(user.name, user.password, context);
         
+        if(login){
+          Navigator.of(context).pop();
+          nav('NavigatorBar', context); 
+          print('Usuario cargado correctamente: $user');
+        }
+        setState(() {_loadingPage = false;}); 
       } catch (e) {
         GenericPopUp(context, 'Error', 'Parece que hubo un error');
         print('Error: $e');
         setState(() {_loadingPage = false;});
-
       }
     } else {
       print('La cadena JSON es nula');
       setState(() {_loadingPage = false;});
-      
     }
-   
   }
 
   @override
