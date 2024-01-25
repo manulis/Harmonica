@@ -10,43 +10,40 @@ class Home extends StatefulWidget{
 }
 
 class _Home extends State<Home>{
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   @override
   Widget build(BuildContext context){
     return Scaffold(
-        appBar: AppBar(   
-          centerTitle: true,
-          title: AppbarTitles(context, 'Home'),
-         leading: Padding(
-            padding: EdgeInsets.only(left: 8.0),
-            child: GestureDetector(
-              onTap: () {
-                print(userHandler.user.name);
-              },
-              child: CircleAvatar(
-                radius: 30.0,
-                backgroundColor: Colors.transparent,
-                child: ClipOval(
-                  child: Image.network(
-                    userHandler.user.image ?? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
-                    width: 30.0,
-                    height: 30.0,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+      key: _scaffoldKey,
+      appBar: AppBar(
+        centerTitle: true,
+        title: AppbarTitles(context, 'Home'),
+        leading: GestureDetector(
+          onTap: () {
+            _scaffoldKey.currentState!.openDrawer();
+          },
+          child: CircleAvatar(
+            radius: 20.0,
+            backgroundColor: Colors.transparent,
+            child: ClipOval(
+              child: Image.network(
+                userHandler.user.image ?? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+                width: 30.0,
+                height: 30.0,
+                fit: BoxFit.cover,
               ),
             ),
           ),
-          actions: [
-            IconButton(
-              iconSize: 30,
-              onPressed: () {
-                
-              },
-              icon: Icon(Icons.settings, ),
-            )
-          ],
-
         ),
+        actions: [
+          IconButton(
+            iconSize: 30,
+            onPressed: () {},
+            icon: Icon(Icons.settings),
+          )
+        ],
+      ),
+        drawer: drawerProfile(userHandler.user, context),
     
         body: FutureBuilder<List<Map<String, dynamic>>>(
         future:  songHandler.getSong(),
@@ -82,7 +79,6 @@ class _Home extends State<Home>{
           }
         },
       ),
-
     );
   }   
 }

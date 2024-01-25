@@ -23,21 +23,43 @@ class _NavigatorBarState extends State<NavigatorBar> {
         indicatorColor: Color.fromRGBO(102, 61, 168, 1),
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
-          NavigationDestination(selectedIcon: Icon(Icons.home),icon: Icon(Icons.home_outlined),label: '',),
-          NavigationDestination(icon:  Icon(Icons.search),label: '',),
-          NavigationDestination(icon:  Icon(Icons.add),label: '',),
-          NavigationDestination(icon: Badge(label: Text('2'),child: Icon(Icons.messenger_sharp),),label: '',),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.home, color: Colors.white), 
+            icon: Icon(Icons.home_outlined),
+            label: '',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.search, color: Colors.white), 
+            icon: Icon(Icons.search),
+            label: '',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.add, color: Colors.white), 
+            icon: Icon(Icons.add),
+            label: '',
+          ),
+          NavigationDestination(
+            selectedIcon: Badge(
+              label: Text('2', style: TextStyle(color: Colors.white)),
+              child: Icon(Icons.messenger_sharp, color: Colors.white),
+            ),
+            icon: Badge(
+              label: Text('2'),
+              child: Icon(Icons.messenger_sharp),
+            ),
+            label: '',
+          ),
         ],
       ),
       body: <Widget>[
         /// Home page
         Home(),
         /// Search page
-        Home(),
+        Center(child:Text('En desarrollo')),
         /// Add page
-        Home(),
+        Center(child:Text('En desarrollo')),
         /// Message page
-        Home(),
+        Center(child:Text('En desarrollo')),
       ][currentPageIndex],
     );
   }

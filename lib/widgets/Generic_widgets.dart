@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:harmonica/functions/databasePetitions.dart';
 import 'package:harmonica/screens/Home.dart';
+import 'package:harmonica/objects/User.dart' as UserObject;
 
 //Cabecera con Logo:
 Widget headLogo(double height){
@@ -242,4 +244,58 @@ class _loadingPage extends State<loadingPage>{
     ); 
   }
 }
+
+//Drawers
+
+Widget drawerProfile(UserObject.User user, context){
+  return Drawer(
+    child: Column(
+      children: <Widget>[
+        Container(
+          height: 200, // Altura ajustable según tu preferencia
+          color: Color.fromRGBO(102, 61, 168, 1),
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                CircleAvatar(
+                  radius: 30, // Tamaño ajustable según tu preferencia
+                  backgroundImage: NetworkImage( user.image ??
+                    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+                  ),
+                ),
+                SizedBox(height: 8), // Espaciador vertical
+                Text(user.name, style: TextStyle(color: Colors.white),),
+                
+              ],
+            ),
+          ),
+        ),
+        ListTile(
+          title: const Row(children: [ Icon(Icons.person), 
+            SizedBox(width: 20,),
+            Text('Profile')
+            ],
+          ),
+          onTap: () {
+            
+          },
+        ),
+        ListTile(
+          title: const Row(children: [ Icon(Icons.logout_outlined), 
+            SizedBox(width: 20,),
+            Text('Logout')
+            ],
+          ),
+          onTap: () {
+           
+          },
+        ),
+      ],
+    ),
+  );
+}
+
+
+
 
