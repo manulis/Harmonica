@@ -36,8 +36,9 @@ class _Init extends State<Init> {
           Navigator.of(context).pop();
           nav('NavigatorBar', context); 
           print('Usuario cargado correctamente: $user');
+
         }
-        setState(() {_loadingPage = false;}); 
+      
       } catch (e) {
         GenericPopUp(context, 'Error', 'Parece que hubo un error');
         print('Error: $e');
@@ -47,6 +48,7 @@ class _Init extends State<Init> {
       print('La cadena JSON es nula');
       setState(() {_loadingPage = false;});
     }
+    
   }
 
   @override
@@ -93,7 +95,6 @@ class _Init extends State<Init> {
                           fontStyle: FontStyle.italic,
                           fontSize: screenWidth*0.04,
                           color: Colors.white,
-                          
                         ),
                       )
                     ],

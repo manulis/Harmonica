@@ -18,19 +18,7 @@ Widget headLogo(double height){
   );
 }
 
-//Textos
-Widget AppbarTitles(context, String title){
- return Text(
-      title,
-      textAlign: TextAlign.center,
-      style: const TextStyle(
-        color: Colors.black,
-        fontSize: 30,
-        fontWeight: FontWeight.bold,  
-    ),
-  );
 
-}
 
 //Botones:
 Widget buildButton(String text, VoidCallback onPressed) {
@@ -253,7 +241,7 @@ Widget drawerProfile(UserObject.User user, context){
       children: <Widget>[
         Container(
           height: 200, // Altura ajustable según tu preferencia
-          color: Color.fromRGBO(102, 61, 168, 1),
+          color:  Color.fromRGBO(40, 4, 64, 1),
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
