@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:harmonica/functions/navigator.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
 import 'package:harmonica/objects/User.dart' as UserObject;
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -59,7 +60,7 @@ class userHandler{
     print(res);
   }
   
-  static Future<bool> getUser(String name, String password, context) async {
+  static Future<bool> LoginUser(String name, String password, context) async {
     var Response = [];
     try {
       print('Entra');
@@ -99,9 +100,11 @@ class userHandler{
     return false;
   }
 
-  static Future<void> logoutUser() async{
+  static Future<void> logoutUser(context) async{
     await deleteData();
     await supabase.auth.signOut();
+    Navigator.of(context).pop();
+    nav('Init', context);
   }
 
 }

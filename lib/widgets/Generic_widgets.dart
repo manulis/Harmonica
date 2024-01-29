@@ -240,19 +240,27 @@ Widget drawerProfile(UserObject.User user, context){
     child: Column(
       children: <Widget>[
         Container(
-          height: 200, // Altura ajustable según tu preferencia
+          height: 200,
           color:  Color.fromRGBO(40, 4, 64, 1),
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
+                userHandler.user.image != null ? 
                 CircleAvatar(
-                  radius: 30, // Tamaño ajustable según tu preferencia
-                  backgroundImage: NetworkImage( user.image ??
-                    'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+                  radius: 30, 
+                  backgroundImage: 
+                  NetworkImage( user.image ??
+                    'https://t3.ftcdn.net/jpg/05/71/08/24/360_F_571082432_Qq45LQGlZsuby0ZGbrd79aUTSQikgcgc.jpg',
                   ),
+                ):
+                CircleAvatar(
+                  radius: 30, 
+                  backgroundImage: 
+                  AssetImage('assets/images/userGenericImage.jpg'),
                 ),
-                SizedBox(height: 8), // Espaciador vertical
+
+                SizedBox(height: 8),
                 Text(user.name, style: TextStyle(color: Colors.white),),
                 
               ],
@@ -276,7 +284,7 @@ Widget drawerProfile(UserObject.User user, context){
             ],
           ),
           onTap: () {
-           
+           userHandler.logoutUser(context);
           },
         ),
       ],

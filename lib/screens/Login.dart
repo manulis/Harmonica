@@ -126,7 +126,7 @@ class _LoginState extends State<Login> {
                               setState(() {
                                 _loadinSpinner = true;
                               });
-                              bool loginUser = await userHandler.getUser(name, password, context);
+                              bool loginUser = await userHandler.LoginUser(name, password, context);
                               setState(() {
                                 _loadinSpinner = false;
                               });

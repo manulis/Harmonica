@@ -30,7 +30,7 @@ class _Init extends State<Init> {
       try {
         UserObject.User user = UserObject.User.fromJson(json.decode(jsonUser));
 
-        bool login = await userHandler.getUser(user.name, user.password, context);
+        bool login = await userHandler.LoginUser(user.name, user.password, context);
         
         if(login){
           Navigator.of(context).pop();

@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:harmonica/screens/Login.dart';
 import 'package:harmonica/screens/Register.dart';
-import 'package:harmonica/screens/Home.dart';
 import 'package:harmonica/NavigatorBar.dart';
+import 'package:harmonica/screens/Init.dart';
 
 nav(String ScreenName, context){
   switch (ScreenName) {
@@ -13,6 +13,9 @@ nav(String ScreenName, context){
       break;
     case 'Register':
       Navigator.of(context).push(CupertinoPageRoute(builder: (BuildContext context){return Register();}));
+      break;
+    case 'Init':
+      Navigator.of(context).push(CupertinoPageRoute(builder: (BuildContext context){return Init();}));
       break;
     case 'NavigatorBar':
       Navigator.of(context).push(CupertinoPageRoute(builder: (BuildContext context){return NavigatorBar();}));

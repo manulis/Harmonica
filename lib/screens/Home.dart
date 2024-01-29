@@ -30,10 +30,12 @@ class _Home extends State<Home>{
             radius: 20.0,
             backgroundColor: Colors.transparent,
             child: ClipOval(
-              child: Image.network(
-                userHandler.user.image ?? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
-                width: 39.0,
-                height: 39.0,
+              child: 
+              userHandler.user.image == null ? Image.asset('assets/images/userGenericImage.jpg', width: 38, height: 38,) :
+              Image.network(
+                userHandler.user.image!,
+                width: 38.0,
+                height: 38.0,
                 fit: BoxFit.cover,
               ),
             ),
@@ -43,7 +45,7 @@ class _Home extends State<Home>{
           IconButton(
             iconSize: 38,
             onPressed: () {},
-            icon: Icon(Icons.settings, color: Colors.white,),
+            icon: const Icon(Icons.settings, color: Colors.white,),
           )
         ],
       ),

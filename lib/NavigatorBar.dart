@@ -20,6 +20,7 @@ class _NavigatorBarState extends State<NavigatorBar> {
             currentPageIndex = index;
           });
         },
+        
         indicatorColor: Color.fromRGBO(102, 61, 168, 1),
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
