@@ -4,24 +4,22 @@ import 'package:harmonica/objects/User.dart' as UserObject;
 import 'package:harmonica/functions/databasePetitions.dart';
 import 'package:flutter_swipe/flutter_swipe.dart';
 
-class Home extends StatefulWidget{
- @override
+class Home extends StatefulWidget {
+  @override
   State<Home> createState() => _Home();
-
 }
 
-class _Home extends State<Home>{
+class _Home extends State<Home> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
- 
+
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:  Color.fromRGBO(40, 4, 64, 1),
+      backgroundColor: Color.fromRGBO(40, 4, 64, 1),
       key: _scaffoldKey,
-      appBar: 
-      AppBar(
+      appBar: AppBar(
         toolbarHeight: 90,
-        backgroundColor:  Color.fromRGBO(40, 4, 64, 1),
+        backgroundColor: Color.fromRGBO(40, 4, 64, 1),
         centerTitle: true,
         title: Image.asset('assets/images/Isotipo2.png', width: 82, height: 40,),
         leading: GestureDetector(
@@ -32,14 +30,14 @@ class _Home extends State<Home>{
             radius: 20.0,
             backgroundColor: Colors.transparent,
             child: ClipOval(
-              child: 
-              userHandler.user.image == null ? Image.asset('assets/images/userGenericImage.jpg', width: 38, height: 38,) :
-              Image.network(
-                userHandler.user.image!,
-                width: 38.0,
-                height: 38.0,
-                fit: BoxFit.cover,
-              ),
+              child: userHandler.user.image == null
+                  ? Image.asset('assets/images/userGenericImage.jpg', width: 38, height: 38,)
+                  : Image.network(
+                      userHandler.user.image!,
+                      width: 38.0,
+                      height: 38.0,
+                      fit: BoxFit.cover,
+                    ),
             ),
           ),
         ),
@@ -51,10 +49,9 @@ class _Home extends State<Home>{
           )
         ],
       ),
-        drawer: drawerProfile(userHandler.user, context),
-        
-        body: FutureBuilder<List<Map<String, dynamic>>>(
-        future:  songHandler.getSong(),
+      drawer: drawerProfile(userHandler.user, context),
+      body: FutureBuilder<List<Map<String, dynamic>>>(
+        future: songHandler.getSong(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -63,38 +60,57 @@ class _Home extends State<Home>{
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(child: Text('No hay datos disponibles', style: TextStyle(color:Colors.white),));
           } else {
-            
-          return Center(child: 
-           Swiper(
-              itemBuilder: (BuildContext context,int index){
-                final Post = snapshot.data![index];
-                return Card(child: Column(
-                  children:[
-                    Container(
-                      decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(Post['id_cancion']),
-                        fit: BoxFit.cover,
-                      ),
+            return Center(
+              child: Swiper(
+                  itemBuilder: (BuildContext context, int index) {
+                  final Post = snapshot.data![index];
+                  return Card(
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
                     ),
-                      
-                      child: Text('Music'),)
-                    ,]
-                ),);
-                
-                
-                 
-              },
-              itemCount: snapshot.data!.length,
-                          
-                itemWidth: 400.0,
-                itemHeight: 400.0,
-                layout: SwiperLayout.TINDER,
-                    
-            ));
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15.0),
+                            topRight: Radius.circular(15.0),
+                          ),
+                          child: Container(
+                            height: 300,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(Post['id_cancion']),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            alignment: Alignment.topCenter,
+                            child: Text('', style: TextStyle(color: Colors.white)),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Aquí puedes agregar otros elementos de la tarjeta debajo de la imagen
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                itemCount: snapshot.data!.length,
+                itemWidth: 300.0,
+                itemHeight: 500.0,
+                layout: SwiperLayout.STACK,
+              )
+            );
           }
         },
       ),
     );
-  }   
+  }
 }
