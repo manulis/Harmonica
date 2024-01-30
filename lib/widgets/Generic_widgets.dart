@@ -254,7 +254,7 @@ Widget drawerProfile(UserObject.User user, context){
                     'https://t3.ftcdn.net/jpg/05/71/08/24/360_F_571082432_Qq45LQGlZsuby0ZGbrd79aUTSQikgcgc.jpg',
                   ),
                 ):
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 30, 
                   backgroundImage: 
                   AssetImage('assets/images/userGenericImage.jpg'),

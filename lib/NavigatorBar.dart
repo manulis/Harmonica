@@ -13,54 +13,61 @@ class _NavigatorBarState extends State<NavigatorBar> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    
     return Scaffold(
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
-        
-        indicatorColor: Color.fromRGBO(102, 61, 168, 1),
-        selectedIndex: currentPageIndex,
-        destinations: const <Widget>[
-          NavigationDestination(
-            selectedIcon: Icon(Icons.home, color: Colors.white), 
-            icon: Icon(Icons.home_outlined),
-            label: '',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.search, color: Colors.white), 
-            icon: Icon(Icons.search),
-            label: '',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.add, color: Colors.white), 
-            icon: Icon(Icons.add),
-            label: '',
-          ),
-          NavigationDestination(
-            selectedIcon: Badge(
-              label: Text('2', style: TextStyle(color: Colors.white)),
-              child: Icon(Icons.messenger_sharp, color: Colors.white),
+      backgroundColor: Color.fromRGBO(40, 4, 64, 1),
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10.0),
+          topRight: Radius.circular(10.0),
+        ),
+        child: NavigationBar(
+          onDestinationSelected: (int index) {
+            setState(() {
+              currentPageIndex = index;
+            });
+          },
+          indicatorColor: Color.fromRGBO(102, 61, 168, 1),
+          selectedIndex: currentPageIndex,
+          destinations: const <Widget>[
+            NavigationDestination(
+              selectedIcon: Icon(Icons.home, color: Colors.white), 
+              icon: Icon(Icons.home_outlined),
+              label: '',
             ),
-            icon: Badge(
-              label: Text('2'),
-              child: Icon(Icons.messenger_sharp),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.search, color: Colors.white), 
+              icon: Icon(Icons.search),
+              label: '',
             ),
-            label: '',
-          ),
-        ],
+            NavigationDestination(
+              selectedIcon: Icon(Icons.add, color: Colors.white), 
+              icon: Icon(Icons.add),
+              label: '',
+            ),
+            NavigationDestination(
+              selectedIcon: Badge(
+                label: Text('2', style: TextStyle(color: Colors.white)),
+                child: Icon(Icons.messenger_sharp, color: Colors.white),
+              ),
+              icon: Badge(
+                label: Text('2'),
+                child: Icon(Icons.messenger_sharp),
+              ),
+              label: '',
+            ),
+          ],
+        ),
       ),
       body: <Widget>[
         /// Home page
         Home(),
         /// Search page
-        Center(child:Text('En desarrollo')),
+        Center(child:Text('Search Page' , style: TextStyle(color: Colors.white),)),
         /// Add page
-        Center(child:Text('En desarrollo')),
+        Center(child:Text('Post Page' , style: TextStyle(color: Colors.white),)),
         /// Message page
-        Center(child:Text('En desarrollo')),
+        Center(child:Text('Message Page', style: TextStyle(color: Colors.white),)),
       ][currentPageIndex],
     );
   }

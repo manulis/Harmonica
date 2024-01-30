@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
 import 'package:harmonica/objects/User.dart' as UserObject;
 import 'package:harmonica/functions/databasePetitions.dart';
+import 'package:swipe_cards/swipe_cards.dart';
 
 class Home extends StatefulWidget{
  @override
@@ -11,6 +12,7 @@ class Home extends StatefulWidget{
 
 class _Home extends State<Home>{
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+ 
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -50,38 +52,36 @@ class _Home extends State<Home>{
         ],
       ),
         drawer: drawerProfile(userHandler.user, context),
-    
+        
         body: FutureBuilder<List<Map<String, dynamic>>>(
         future:  songHandler.getSong(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: spinkit);
+            return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error al obtener datos', style: TextStyle(color:Colors.white),));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(child: Text('No hay datos disponibles', style: TextStyle(color:Colors.white),));
           } else {
           
-            return CustomScrollView(
-              slivers: <Widget>[
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      final Post = snapshot.data![index];
-                      return InkWell(
-                        onTap: () {
-                          
-                        },
-                        child: ListTile(
-                          title: Text('${Post['Nombre']}'),
-                        ),
-                      );
-                    },
-                    childCount: snapshot.data!.length,
-                  ),
+          return CustomScrollView(
+            slivers: <Widget>[
+              SliverList( 
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    final Post = snapshot.data![index];
+                    print(Post['id_cancion']);
+                    return  Container(
+
+                      
+                       
+                    );
+                  },
+                  childCount: snapshot.data!.length,
                 ),
-              ],
-            );
+              ),
+            ],
+          );
           }
         },
       ),

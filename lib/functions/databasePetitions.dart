@@ -103,7 +103,10 @@ class userHandler{
   static Future<void> logoutUser(context) async{
     await deleteData();
     await supabase.auth.signOut();
-    Navigator.of(context).pop();
+    for (var i = 0; i < 2; i++) {
+      Navigator.of(context).pop();
+    }
+    
     nav('Init', context);
   }
 
