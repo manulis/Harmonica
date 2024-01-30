@@ -16,7 +16,7 @@ dependencies:
   email_validator: '^2.1.16'
   flutter_spinkit: ^5.2.0
   shared_preferences: ^2.0.8
-  swipe_cards: ^2.0.0+1
+  flutter_swipe: ^1.0.1
 
 dev_dependencies:
   flutter_test:

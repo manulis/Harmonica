@@ -12,10 +12,11 @@ class _NavigatorBarState extends State<NavigatorBar> {
   int currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
+   
     
     return Scaffold(
       backgroundColor: Color.fromRGBO(40, 4, 64, 1),
+      
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(10.0),

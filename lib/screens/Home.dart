@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
 import 'package:harmonica/objects/User.dart' as UserObject;
 import 'package:harmonica/functions/databasePetitions.dart';
-import 'package:swipe_cards/swipe_cards.dart';
+import 'package:flutter_swipe/flutter_swipe.dart';
 
 class Home extends StatefulWidget{
  @override
@@ -63,25 +63,35 @@ class _Home extends State<Home>{
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(child: Text('No hay datos disponibles', style: TextStyle(color:Colors.white),));
           } else {
-          
-          return CustomScrollView(
-            slivers: <Widget>[
-              SliverList( 
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    final Post = snapshot.data![index];
-                    print(Post['id_cancion']);
-                    return  Container(
-
+            
+          return Center(child: 
+           Swiper(
+              itemBuilder: (BuildContext context,int index){
+                final Post = snapshot.data![index];
+                return Card(child: Column(
+                  children:[
+                    Container(
+                      decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(Post['id_cancion']),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                       
-                       
-                    );
-                  },
-                  childCount: snapshot.data!.length,
-                ),
-              ),
-            ],
-          );
+                      child: Text('Music'),)
+                    ,]
+                ),);
+                
+                
+                 
+              },
+              itemCount: snapshot.data!.length,
+                          
+                itemWidth: 400.0,
+                itemHeight: 400.0,
+                layout: SwiperLayout.TINDER,
+                    
+            ));
           }
         },
       ),
