@@ -124,7 +124,7 @@ class songHandler {
 
   static Future<List<Map<String, dynamic>>> getSong() async {
     try{
-      final data =  await supabase.from("post").select('*,  cancion!inner(*)');
+      final data =  await supabase.from("post").select('*,  cancion!inner(*), infoUsuarios!inner(*)');
 
 
       return data;

@@ -13,7 +13,7 @@ class Home extends StatefulWidget {
 
 class _Home extends State<Home> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,11 +35,11 @@ class _Home extends State<Home> {
               child: userHandler.user.image == null
                   ? Image.asset('assets/images/userGenericImage.jpg', width: 38, height: 38,)
                   : Image.network(
-                      userHandler.user.image!,
-                      width: 38.0,
-                      height: 38.0,
-                      fit: BoxFit.cover,
-                    ),
+                userHandler.user.image!,
+                width: 38.0,
+                height: 38.0,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),
@@ -64,71 +64,125 @@ class _Home extends State<Home> {
           } else {
             return Center(
               child: Swiper(
-                  itemBuilder: (BuildContext context, int index) {
+                itemBuilder: (BuildContext context, int index) {
                   final Post = snapshot.data![index];
-                 
                   return Card(
                     elevation: 5,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
-                    child: 
-                    InkWell(
+                    child: InkWell(
                       borderRadius: const BorderRadius.all(Radius.circular(15.0)),
-                      splashColor: const Color.fromRGBO(102, 61, 168, 1),
+                      splashColor: Color.fromARGB(26, 102, 61, 168),
                       onTap: (){},
-                      child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(15.0),
-                            topRight: Radius.circular(15.0),
-                          ),
-                          child: Container(
-                            height: 300,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(Post['id_cancion']),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            alignment: Alignment.topCenter,
-                            child: Text('', style: TextStyle(color: Colors.white)),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Stack(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              Center(child:
-                                Column(
-                                  children: [
-                                    const SizedBox(height: 10,),
-                                    Text('${Post['cancion']['Artista']}', 
-                                    style: const TextStyle(
-                                      fontSize: 23,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                              Container(
+                                height: 300,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(15.0),
+                                    topRight: Radius.circular(15.0),
                                   ),
-                                  const SizedBox(height: 10,),
-                                  Text('${Post['cancion']['Nombre']}'),
-                                ]
-                              )
+                                  image: DecorationImage(
+                                    image: NetworkImage(Post['cancion']['Imagen']),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Center(
+                                      child: Column(
+                                        children: [
+                                          const SizedBox(height: 10,),
+                                          Text('${Post['cancion']['Artista']}', 
+                                            style: const TextStyle(
+                                              fontSize: 23,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10,),
+                                          Text('${Post['cancion']['Nombre']}'),
+                                        ]
+                                      )
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
-                    ),)
+                          Container(
+                            height: 300,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(15.0),
+                                topRight: Radius.circular(15.0),
+                              ),
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.black.withOpacity(0.5),
+                                  Colors.black.withOpacity(0.5),
+                                ],
+                                stops: [0.6, 1.0],
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 20,
+                            left: 20,
+                            child:
+                            Row(children: [
+                              GestureDetector(
+                                onTap: () {
+                                  
+                                },
+                                child: CircleAvatar(
+                                  radius: 20.0,
+                                  backgroundColor: Colors.transparent,
+                                  child: ClipOval(
+                                    child: Post['infoUsuarios']['Imagen'] == null
+                                        ? Image.asset('assets/images/userGenericImage.jpg', width: 38, height: 38,)
+                                        : Image.network(
+                                      Post['infoUsuarios']['Imagen']!,
+                                      width: 38.0,
+                                      height: 38.0,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 20,),
+                              Text(
+                                '${Post['infoUsuarios']['Nombre']}',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+
+                            ],)
+                          
+                          ),
+                        ],
+                      ),
+                    ),
                   );
                 },
                 itemCount: snapshot.data!.length,
                 itemWidth: 300.0,
                 itemHeight: 500.0,
                 layout: SwiperLayout.STACK,
-              )
+              ),
             );
           }
         },
