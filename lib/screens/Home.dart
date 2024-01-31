@@ -94,7 +94,7 @@ class _Home extends State<Home> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Aquí puedes agregar otros elementos de la tarjeta debajo de la imagen
+                              
                             ],
                           ),
                         ),
