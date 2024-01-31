@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
 import 'package:harmonica/objects/User.dart' as UserObject;
@@ -11,7 +13,7 @@ class Home extends StatefulWidget {
 
 class _Home extends State<Home> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,16 +66,22 @@ class _Home extends State<Home> {
               child: Swiper(
                   itemBuilder: (BuildContext context, int index) {
                   final Post = snapshot.data![index];
+                 
                   return Card(
                     elevation: 5,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
-                    child: Column(
+                    child: 
+                    InkWell(
+                      borderRadius: const BorderRadius.all(Radius.circular(15.0)),
+                      splashColor: const Color.fromRGBO(102, 61, 168, 1),
+                      onTap: (){},
+                      child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(15.0),
                             topRight: Radius.circular(15.0),
                           ),
@@ -94,12 +102,26 @@ class _Home extends State<Home> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              
+                              Center(child:
+                                Column(
+                                  children: [
+                                    const SizedBox(height: 10,),
+                                    Text('${Post['cancion']['Artista']}', 
+                                    style: const TextStyle(
+                                      fontSize: 23,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10,),
+                                  Text('${Post['cancion']['Nombre']}'),
+                                ]
+                              )
+                              ),
                             ],
                           ),
                         ),
                       ],
-                    ),
+                    ),)
                   );
                 },
                 itemCount: snapshot.data!.length,

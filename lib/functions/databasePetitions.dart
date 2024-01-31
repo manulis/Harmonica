@@ -110,13 +110,23 @@ class userHandler{
     nav('Init', context);
   }
 
+  static Future<void> signSpoti() async {
+
+    await supabase.auth.signInWithOAuth(
+      OAuthProvider.spotify,
+       redirectTo: 'jpztuzgyiluqazttymmb.supabase.co/auth/v1/callback',
+    );
+
+  }
 }
 
 class songHandler {
 
   static Future<List<Map<String, dynamic>>> getSong() async {
     try{
-      final data =  await supabase.from("post").select('*');
+      final data =  await supabase.from("post").select('*,  cancion!inner(*)');
+
+
       return data;
     }on Exception catch (e){
       print("Error: ${e}");
