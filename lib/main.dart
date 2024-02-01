@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:harmonica/screens/Profile.dart';
 import 'package:harmonica/screens/Init.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -18,8 +19,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Init(),
+      home: Profile(),
     );
   }
 }
