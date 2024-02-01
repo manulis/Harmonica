@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
+import 'package:harmonica/functions/navigator.dart';
 import 'package:harmonica/screens/Home.dart';
 import 'package:harmonica/objects/User.dart' as UserObject;
 
@@ -274,7 +275,7 @@ Widget drawerProfile(UserObject.User user, context){
             ],
           ),
           onTap: () {
-            
+            nav('Profile', context);
           },
         ),
         ListTile(
