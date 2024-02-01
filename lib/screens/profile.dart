@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:harmonica/objects/User.dart' as UserObject;
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:harmonica/functions/databasePetitions.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -41,7 +44,15 @@ class ProfileCard extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: ClipOval(
-                      child:Image.asset("assets/images/userGenericImage.jpg",height: 100,width: 100),
+                      child:
+                      userHandler.user.image == null
+                            ? Image.asset('assets/images/userGenericImage.jpg', width: 100, height: 100,)
+                            : Image.network(
+                          userHandler.user.image!,
+                          width: 38.0,
+                          height: 38.0,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                   ),
                 ),
@@ -49,7 +60,7 @@ class ProfileCard extends StatelessWidget {
                   height: 20,
                 ),
                 Center(
-                  child: Text("genericUsername",style: TextStyle(color: Colors.white,fontSize: 25)),
+                  child: Text(userHandler.user.name,style: TextStyle(color: Colors.white,fontSize: 25)),
                 ),
                 SizedBox(
                   height: 20,
@@ -114,10 +125,7 @@ class _FavArtistsState extends State<FavArtists> {
             Stack(alignment:Alignment.topCenter,
             children:[
               Text("Artistas favoritos",style: TextStyle(color: Colors.white,fontSize: 18))]),
-              ListView.builder(
-                itemBuilder: 10,
-                scrollDirection: Axis.horizontal,
-              )
+           
           ],
         ),
       ),
