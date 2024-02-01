@@ -132,6 +132,7 @@ class _LoginState extends State<Login> {
                               });
                               _save();
                               if(loginUser){
+                                Navigator.of(context).pop();
                                 nav('NavigatorBar', context);
                               }else{
                                 print('Parece que hubo un error');
