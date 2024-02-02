@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:harmonica/screens/Profile.dart';
+
 import 'package:harmonica/screens/Init.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
