@@ -31,6 +31,7 @@ class _Post extends State<Post>{
             onChanged: (_) {
               controller.openView();
             },
+            hintText: 'Search Song',
             leading: const Icon(Icons.search),
           );
         }, suggestionsBuilder:
