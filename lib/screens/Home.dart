@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
-import 'package:harmonica/objects/User.dart' as UserObject;
 import 'package:harmonica/functions/databasePetitions.dart';
 import 'package:flutter_swipe/flutter_swipe.dart';
 
@@ -13,9 +11,11 @@ class Home extends StatefulWidget {
 
 class _Home extends State<Home> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Color.fromRGBO(40, 4, 64, 1),
       key: _scaffoldKey,
@@ -68,6 +68,7 @@ class _Home extends State<Home> {
                   final Post = snapshot.data![index];
                   return Card(
                     elevation: 5,
+                    
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
@@ -180,7 +181,7 @@ class _Home extends State<Home> {
                 },
                 itemCount: snapshot.data!.length,
                 itemWidth: 300.0,
-                itemHeight: 500.0,
+                itemHeight: screenHeight/1.5,
                 layout: SwiperLayout.STACK,
               ),
             );

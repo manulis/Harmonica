@@ -134,6 +134,11 @@ class songHandler {
     }
   }
 
+  static Future<bool> postSong() async {
+
+    return true;
+  }
+
 
 }
 

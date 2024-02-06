@@ -17,6 +17,7 @@ class _ProfileState extends State<Profile> {
     return MaterialApp(
         color:Color.fromARGB(255, 19, 1, 31) ,
         home: const Scaffold(
+          backgroundColor: const Color.fromRGBO(40, 4, 64, 1),
         body: Column(
           children:[
           ProfileCard(),

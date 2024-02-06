@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:harmonica/functions/navigator.dart';
 import 'package:harmonica/screens/Home.dart';
+import 'package:harmonica/screens/Post.dart';
+
 
 class NavigatorBar extends StatefulWidget {
   const NavigatorBar({super.key});
@@ -12,16 +13,10 @@ class _NavigatorBarState extends State<NavigatorBar> {
   int currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
-   
     
     return Scaffold(
       backgroundColor: Color.fromRGBO(40, 4, 64, 1),
-      
       bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10.0),
-          topRight: Radius.circular(10.0),
-        ),
         child: NavigationBar(
           onDestinationSelected: (int index) {
             setState(() {
@@ -66,7 +61,7 @@ class _NavigatorBarState extends State<NavigatorBar> {
         /// Search page
         Center(child:Text('Search Page' , style: TextStyle(color: Colors.white),)),
         /// Add page
-        Center(child:Text('Post Page' , style: TextStyle(color: Colors.white),)),
+        Post(),
         /// Message page
         Center(child:Text('Message Page', style: TextStyle(color: Colors.white),)),
       ][currentPageIndex],
