@@ -123,12 +123,12 @@ class _FavArtistsState extends State<FavArtists> {
       width: double.infinity,
       height: 150,
       child: Card(
-        color: Color.fromRGBO(40, 4, 64, 1),
+        color: Colors.white,
         child: Column(
           children: [
             Stack(alignment:Alignment.topCenter,
             children:[
-              Text("Artistas favoritos",style: TextStyle(color: Colors.white,fontSize: 18))]),
+              Text("Artistas favoritos",style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0),fontSize: 18))]),
            
           ],
         ),
