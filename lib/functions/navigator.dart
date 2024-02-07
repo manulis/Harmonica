@@ -6,7 +6,6 @@ import 'package:harmonica/screens/Register.dart';
 import 'package:harmonica/NavigatorBar.dart';
 import 'package:harmonica/screens/Init.dart';
 import 'package:harmonica/screens/Profile.dart';
-import 'package:harmonica/screens/Post.dart';
 
 nav(String ScreenName, context){
   switch (ScreenName) {

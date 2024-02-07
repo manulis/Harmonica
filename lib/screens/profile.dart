@@ -37,7 +37,7 @@ class ProfileCard extends StatelessWidget {
         width: double.infinity,
         height: 300,
         child: Card(
-            color: const Color.fromRGBO(40, 4, 64, 1),
+            color: Colors.white,
             child: Column(
               children: [
                 Padding(
@@ -46,9 +46,9 @@ class ProfileCard extends StatelessWidget {
                     alignment: Alignment.topCenter,
                     child: ClipOval(
                       child:
-                      userHandler.user.image == null
-                            ? Image.asset('assets/images/userGenericImage.jpg', width: 100, height: 100,)
-                            : Image.network(
+                        userHandler.user.image == null
+                          ? Image.asset('assets/images/userGenericImage.jpg', width: 100, height: 100,)
+                          : Image.network(
                           userHandler.user.image!,
                           width: 38.0,
                           height: 38.0,
@@ -61,7 +61,7 @@ class ProfileCard extends StatelessWidget {
                   height: 20,
                 ),
                 Center(
-                  child: Text(userHandler.user.name,style: TextStyle(color: Colors.white,fontSize: 25)),
+                  child: Text(userHandler.user.name,style: TextStyle(color: Colors.black,fontSize: 25)),
                 ),
                 SizedBox(
                   height: 20,
@@ -72,26 +72,29 @@ class ProfileCard extends StatelessWidget {
                     children: [
                       Column(
                         children: [
-                          Text("Seguidores",style: TextStyle(color: Colors.white,fontSize: 15)),
-                          Text("0",style: TextStyle(color: Colors.white54,fontSize: 15)), 
+                          
+                          Text("Followers",style: TextStyle(color: Colors.black,fontSize: 15)),
+                          Text("0",style: TextStyle(color: Colors.black,fontSize: 15)), 
                         ],
                       ),
                       Row(
                         children: [
-                          VerticalDivider(color: Colors.white54,thickness: 2.0,width:5,endIndent: 0,),
+                          SizedBox(width: 15,),
+                         
                           Column(
                             children: [
-                              Text("Seguidores",style: TextStyle(color: Colors.white,fontSize: 15)),
-                              Text("0",style: TextStyle(color: Colors.white54,fontSize: 15))
+                              Text("Following",style: TextStyle(color: Colors.black,fontSize: 15)),
+                              Text("0",style: TextStyle(color: Colors.black,fontSize: 15))
                             ],
                           ),
                         ],
                       ),
-                      VerticalDivider(color: Colors.white54,thickness: 2.0,width:5,endIndent: 0,),
+                      SizedBox(width: 15,),
+                      
                       Column(
                         children: [
-                          Text("Post",style: TextStyle(color: Colors.white,fontSize: 15)),
-                          Text("0",style: TextStyle(color: Colors.white54,fontSize: 15))
+                          Text("Posts",style: TextStyle(color: Colors.black,fontSize: 15)),
+                          Text("0",style: TextStyle(color: Colors.black,fontSize: 15))
                         ],
                       ),
                     ],
