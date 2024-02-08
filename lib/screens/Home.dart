@@ -12,7 +12,6 @@ class Home extends StatefulWidget {
 class _Home extends State<Home> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   
-
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -68,7 +67,6 @@ class _Home extends State<Home> {
                   final Post = snapshot.data![index];
                   return Card(
                     elevation: 5,
-                    
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),

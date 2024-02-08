@@ -295,3 +295,40 @@ Widget drawerProfile(UserObject.User user, context){
 
 
 
+//SearchAnchor
+
+
+class CustomSearchBar extends StatefulWidget {
+  final SearchController controller;
+  final EdgeInsetsGeometry padding;
+  final VoidCallback onTap;
+  final ValueChanged<String> onChanged;
+  final String hintText;
+  final Widget leading;
+
+  CustomSearchBar({
+
+    required this.controller,
+    this.padding = const EdgeInsets.symmetric(horizontal: 15.0),
+    required this.onTap,
+    required this.onChanged,
+    required this.hintText,
+    required this.leading,
+  });
+
+  @override
+  _CustomSearchBarState createState() => _CustomSearchBarState();
+}
+
+class _CustomSearchBarState extends State<CustomSearchBar> {
+  @override
+  Widget build(BuildContext context) {
+    return SearchBar(
+      controller: widget.controller,
+      onTap: widget.onTap,
+      onChanged: widget.onChanged,
+      hintText: widget.hintText,
+      leading: widget.leading,
+    );
+  }
+}

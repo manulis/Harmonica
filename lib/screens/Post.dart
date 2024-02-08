@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:harmonica/functions/navigator.dart';
+import 'package:harmonica/widgets/Generic_widgets.dart';
 
 class Post extends StatefulWidget{
   @override
@@ -15,7 +17,8 @@ class _Post extends State<Post>{
           centerTitle: true,
           leading: GestureDetector(
             onTap: (){
-              
+              Navigator.of(context).pop();
+              nav('NavigatorBar', context);
             },
             child: Icon(Icons.close, color: Colors.white, size: 38,),
           ),
@@ -37,19 +40,18 @@ class _Post extends State<Post>{
         child: Column(children: [
           SearchAnchor(
             builder: (BuildContext context, SearchController controller) {
-            return SearchBar(
-              controller: controller,
-              padding: const MaterialStatePropertyAll<EdgeInsets>(
-                  EdgeInsets.symmetric(horizontal: 15.0)),
-              onTap: () {
-                controller.openView();
-              },
-              onChanged: (_) {
-                controller.openView();
-              },
-              hintText: 'Search Song',
-              leading: const Icon(Icons.search),
-            );
+            return CustomSearchBar(
+                controller: controller,
+                onTap: () {
+                  controller.openView();
+                },
+                onChanged: (_) {
+                  controller.openView();
+                },
+                hintText: 'Search Song',
+                leading: Icon(Icons.search),
+             );
+
           }, suggestionsBuilder:
           (BuildContext context, SearchController controller) {
             return List<ListTile>.generate(5, (int index) {

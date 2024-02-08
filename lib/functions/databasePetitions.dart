@@ -31,7 +31,7 @@ class userHandler{
     if(!NameExists && !EmailExists && !PhoneExists){
       try{
         await signUp(user.email, user.password);
-        await supabase.from('infoUsuarios').insert({'Nombre': user.name, 'Imagen': user.image ,'Email': user.email, 'Telefono': user.phone, 'Fecha_nacimiento': user.birthDate});
+        await supabase.from('infoUsuarios').insert({'Nombre': user.name, 'Imagen': user.image ,'Email': user.email, 'Telefono': user.phone, 'Fecha_nacimiento': user.birthDate, 'Seguidos': [], 'Seguidores':[]});
         await saveData(user, 'UserPrefs');
         return true;
       }on Exception catch (e){
@@ -100,24 +100,32 @@ class userHandler{
     return false;
   }
 
+  static Future<List> GetUserInfoInRealtime(UserObject.User user) async {
+    List Response = await supabase.from('infoUsuarios').select('''Seguidos, Seguidores''').eq('Nombre', user.name);
+    List Following = Response[0]['Seguidos'];
+    List Followers = Response[0]['Seguidores'];
+    print(Following.length);
+    print(Followers.length);
+    return Response;
+  }
+
   static Future<void> logoutUser(context) async{
     await deleteData();
     await supabase.auth.signOut();
     for (var i = 0; i < 2; i++) {
       Navigator.of(context).pop();
     }
-    
     nav('Init', context);
   }
 
   static Future<void> signSpoti() async {
-
     await supabase.auth.signInWithOAuth(
       OAuthProvider.spotify,
        redirectTo: 'jpztuzgyiluqazttymmb.supabase.co/auth/v1/callback',
     );
-
   }
+
+
 }
 
 class songHandler {

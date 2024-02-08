@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:harmonica/screens/Home.dart';
 import 'package:harmonica/screens/Post.dart';
-
+import 'package:harmonica/screens/Search.dart';
 
 class NavigatorBar extends StatefulWidget {
   const NavigatorBar({super.key});
@@ -59,7 +59,7 @@ class _NavigatorBarState extends State<NavigatorBar> {
         /// Home page
         Home(),
         /// Search page
-        Center(child:Text('Search Page' , style: TextStyle(color: Colors.white),)),
+        Search(),
         /// Add page
         Post(),
         /// Message page

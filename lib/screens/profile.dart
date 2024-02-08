@@ -1,8 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:harmonica/objects/User.dart' as UserObject;
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
+import 'package:harmonica/widgets/Generic_widgets.dart';
+import 'package:harmonica/functions/databasePetitions.dart';
+
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -16,7 +18,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return MaterialApp(
         color:Color.fromARGB(255, 19, 1, 31) ,
-        home: const Scaffold(
+        home: Scaffold(
           backgroundColor: const Color.fromRGBO(40, 4, 64, 1),
         body: Column(
           children:[
@@ -27,15 +29,19 @@ class _ProfileState extends State<Profile> {
   }
 }
 
-class ProfileCard extends StatelessWidget {
-  const ProfileCard({super.key});
+class ProfileCard extends StatefulWidget{
+  @override
+  State<ProfileCard> createState() => _ProfileCard();
+}
+
+class _ProfileCard extends State<ProfileCard> {
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
         width: double.infinity,
-        height: 300,
+        height: 350,
         child: Card(
             color: Colors.white,
             child: Column(
@@ -72,7 +78,6 @@ class ProfileCard extends StatelessWidget {
                     children: [
                       Column(
                         children: [
-                          
                           Text("Followers",style: TextStyle(color: Colors.black,fontSize: 15)),
                           Text("0",style: TextStyle(color: Colors.black,fontSize: 15)), 
                         ],
@@ -95,11 +100,20 @@ class ProfileCard extends StatelessWidget {
                         children: [
                           Text("Posts",style: TextStyle(color: Colors.black,fontSize: 15)),
                           Text("0",style: TextStyle(color: Colors.black,fontSize: 15))
+
                         ],
                       ),
+
                     ],
                   ),
-                )
+
+                  
+                ),
+                
+                buildButton('Edit Profile', () { 
+                  
+                }),
+                SizedBox(height: 10,),
               ],
             )
           ),
@@ -126,6 +140,7 @@ class _FavArtistsState extends State<FavArtists> {
         color: Colors.white,
         child: Column(
           children: [
+            SizedBox(height: 10,),
             Stack(alignment:Alignment.topCenter,
             children:[
               Text("Artistas favoritos",style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0),fontSize: 18))]),
