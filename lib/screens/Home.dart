@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
 import 'package:flutter_swipe/flutter_swipe.dart';
+import 'package:harmonica/functions/navigator.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -73,7 +74,11 @@ class _Home extends State<Home> {
                     child: InkWell(
                       borderRadius: const BorderRadius.all(Radius.circular(15.0)),
                       splashColor: Color.fromARGB(26, 102, 61, 168),
-                      onTap: (){},
+                      onTap: (){
+                        userHandler.UserProfileView = Post['infoUsuarios']['Nombre'];
+                        print(userHandler.UserProfileView);
+                        nav('Profile', context);
+                      },
                       child: Stack(
                         children: [
                           Column(
@@ -142,12 +147,15 @@ class _Home extends State<Home> {
                             Row(children: [
                               GestureDetector(
                                 onTap: () {
-                                  
+                                  userHandler.UserProfileView = Post['infoUsuarios']['Nombre'];
+                                  nav('Profile', context);
                                 },
-                                child: CircleAvatar(
+                                child: 
+                                CircleAvatar(
                                   radius: 20.0,
                                   backgroundColor: Colors.transparent,
-                                  child: ClipOval(
+                                  child: 
+                                  ClipOval(
                                     child: Post['infoUsuarios']['Imagen'] == null
                                         ? Image.asset('assets/images/userGenericImage.jpg', width: 38, height: 38,)
                                         : Image.network(
@@ -168,9 +176,7 @@ class _Home extends State<Home> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-
                             ],)
-                          
                           ),
                         ],
                       ),

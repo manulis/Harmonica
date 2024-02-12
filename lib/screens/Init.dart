@@ -101,11 +101,12 @@ class _Init extends State<Init> {
                   ),
                   const SizedBox(height: 80),
                   buildButton("Login", () {
-                    
+                    Navigator.of(context).pop();
                     nav('Login', context);
                   }),
                   const SizedBox(height: 50),
                   buildButton("Register", () {
+                    Navigator.of(context).pop();
                     nav('Register', context);
                   })
                 ],

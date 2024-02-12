@@ -275,6 +275,7 @@ Widget drawerProfile(UserObject.User user, context){
             ],
           ),
           onTap: () {
+            userHandler.UserProfileView = userHandler.user.name;
             nav('Profile', context);
           },
         ),

@@ -4,7 +4,6 @@ import 'package:harmonica/widgets/Generic_widgets.dart';
 import 'package:harmonica/objects/User.dart' as UserObject;
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:harmonica/main.dart';
-
 import 'package:harmonica/functions/sharedPreferencesOperations.dart';
 
 class userHandler{
@@ -12,7 +11,7 @@ class userHandler{
   static bool NameExists = false;
   static bool EmailExists = false;
   static bool PhoneExists = false;
-  
+  static var UserProfileView = '';
   static UserObject.User user = UserObject.User('', '', '', '', '','');
 
   static Future<bool> postUser(UserObject.User user, context) async {
@@ -100,12 +99,8 @@ class userHandler{
     return false;
   }
 
-  static Future<List> GetUserInfoInRealtime(UserObject.User user) async {
-    List Response = await supabase.from('infoUsuarios').select('''Seguidos, Seguidores''').eq('Nombre', user.name);
-    List Following = Response[0]['Seguidos'];
-    List Followers = Response[0]['Seguidores'];
-    print(Following.length);
-    print(Followers.length);
+  static Future<List<Map<String, dynamic>>> GetUserInfoInRealtime(String UserProfileView) async {
+    final Response = await supabase.from('infoUsuarios').select('''*''').eq('Nombre', UserProfileView);
     return Response;
   }
 
@@ -125,7 +120,15 @@ class userHandler{
     );
   }
 
-
+  static Future<List<Map<String, dynamic>>> getAllusers(String user) async {
+    if(user == ''){
+      return [];
+    }else{
+      final Response = await supabase.from('infoUsuarios').select('Nombre').ilike('Nombre', '$user%');
+      return Response;
+    }
+  }
+  
 }
 
 class songHandler {
@@ -133,8 +136,6 @@ class songHandler {
   static Future<List<Map<String, dynamic>>> getSong() async {
     try{
       final data =  await supabase.from("post").select('*,  cancion!inner(*), infoUsuarios!inner(*)');
-
-
       return data;
     }on Exception catch (e){
       print("Error: ${e}");
