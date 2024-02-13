@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
+import 'package:harmonica/functions/navigator.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
 
@@ -46,11 +47,30 @@ class _Search extends State<Search> {
                   print(userList);
                   List<Widget> listTiles = userList.map((user) {
                     return ListTile(
+                      leading: CircleAvatar(
+                        radius: 20.0,
+                        backgroundColor: Colors.transparent,
+                        child: ClipOval(
+                          child: user['Imagen'] == null
+                              ? Image.asset(
+                                  'assets/images/userGenericImage.jpg',
+                                  width: 38,
+                                  height: 38,
+                                )
+                              : Image.network(
+                                 user['Imagen'],
+                                  width: 38.0,
+                                  height: 38.0,
+                                  fit: BoxFit.cover,
+                                ),
+                        ),
+                      ),
                       title: Text(user['Nombre'] as String),
                       onTap: () {
                         setState(() {
-                          controller.closeView(user as String);
-                          print(user['Nombre']);
+                          controller.closeView(user['Nombre'] as String);
+                          userHandler.UserProfileView = user['Nombre'];
+                          nav('Profile', context);
                           print('Text' + controller.text);
                         });
                       },

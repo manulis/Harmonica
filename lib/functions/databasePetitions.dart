@@ -124,7 +124,7 @@ class userHandler{
     if(user == ''){
       return [];
     }else{
-      final Response = await supabase.from('infoUsuarios').select('Nombre').ilike('Nombre', '$user%');
+      final Response = await supabase.from('infoUsuarios').select('''Nombre, Imagen''').ilike('Nombre', '$user%');
       return Response;
     }
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
+import 'package:harmonica/objects/User.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
 
@@ -55,6 +56,8 @@ class ProfileCard extends StatefulWidget {
 }
 
 class _ProfileCard extends State<ProfileCard> {
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -71,12 +74,19 @@ class _ProfileCard extends State<ProfileCard> {
               ),
             );
           } else {
-            print(snapshot.data);
+
             final userInfo = snapshot.data!;
-            print(userInfo[0]['Nombre']);
             List followers = userInfo[0]['Seguidores'];
             List following = userInfo[0]['Seguidos'];
-            print(userInfo[0]['Imagen']);
+            bool userFollowed = false;
+            
+            for (var i = 0; i < followers.length; i++) {
+              if(followers[i] == userHandler.user.name){
+                userFollowed = true;
+                break;
+              }
+            }
+
             return Center(
               child: Container(
                 width: double.infinity,
@@ -118,6 +128,35 @@ class _ProfileCard extends State<ProfileCard> {
                           style: TextStyle(color: Colors.black, fontSize: 25),
                         ),
                       ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                      
+                    if(userHandler.UserProfileView != userHandler.user.name && !userFollowed)
+                      Center(child: 
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                          buildButton2('Follow', () async {
+                            await User.follow(userHandler.UserProfileView);
+                            setState(() {
+                              userFollowed = true;
+                            });
+                          }),
+                        ],),
+                      )
+
+                    else if(userHandler.UserProfileView != userHandler.user.name)
+                        Center(child: 
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                          buildButton2('Following', () async {
+
+                          }),
+
+                        ],),
+                      ),
                       SizedBox(
                         height: 20,
                       ),
@@ -135,10 +174,11 @@ class _ProfileCard extends State<ProfileCard> {
                                 Text(
                                   '${followers.length}',
                                   style: TextStyle(
-                                      color: Colors.black, fontSize: 15),
+                                    color: Colors.black, fontSize: 15),
                                 ),
                               ],
                             ),
+                            
                             Row(
                               children: [
                                 SizedBox(
@@ -151,6 +191,7 @@ class _ProfileCard extends State<ProfileCard> {
                                       style: TextStyle(
                                           color: Colors.black, fontSize: 15),
                                     ),
+
                                     Text(
                                       '${following.length}',
                                       style: TextStyle(
@@ -182,6 +223,9 @@ class _ProfileCard extends State<ProfileCard> {
                       ),
                       if (userHandler.UserProfileView == userHandler.user.name)
                         buildButton('Edit Profile', () {}),
+                 
+                      
+                      
                      const SizedBox(height: 10),
                     ],
                   ),

@@ -147,8 +147,7 @@ class _Home extends State<Home> {
                             Row(children: [
                               GestureDetector(
                                 onTap: () {
-                                  userHandler.UserProfileView = Post['infoUsuarios']['Nombre'];
-                                  nav('Profile', context);
+                                
                                 },
                                 child: 
                                 CircleAvatar(
