@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
+import 'package:harmonica/functions/navigator.dart';
 import 'package:harmonica/objects/User.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
@@ -79,6 +80,8 @@ class _ProfileCard extends State<ProfileCard> {
             List followers = userInfo[0]['Seguidores'];
             List following = userInfo[0]['Seguidos'];
             bool userFollowed = false;
+
+            print(followers.runtimeType);
             
             for (var i = 0; i < followers.length; i++) {
               if(followers[i] == userHandler.user.name){
@@ -86,6 +89,8 @@ class _ProfileCard extends State<ProfileCard> {
                 break;
               }
             }
+
+          
 
             return Center(
               child: Container(
@@ -157,48 +162,77 @@ class _ProfileCard extends State<ProfileCard> {
 
                         ],),
                       ),
-                      SizedBox(
+                     const SizedBox(
                         height: 20,
                       ),
                       Expanded(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Column(
-                              children: [
-                                Text(
-                                  "Followers",
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 15),
-                                ),
-                                Text(
-                                  '${followers.length}',
-                                  style: TextStyle(
-                                    color: Colors.black, fontSize: 15),
-                                ),
-                              ],
+                            InkWell(
+                              onTap: (){
+                                print(followers);
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return followsFollowersListWidget(followers, 'Followers');
+                                },);
+                                                              
+                              },
+                                child: Column(
+                                children: [
+                                const Text(
+                                    "Followers",
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 15),
+                                  ),
+                              
+                                  Text(
+                                    '${followers.length}',
+                                    style: const TextStyle(
+                                        color: Color.fromARGB(255, 70, 58, 58), fontSize: 15),
+                                  ),
+                                    
+                                  
+                                ],
+                              ),
                             ),
+                            
                             
                             Row(
                               children: [
-                                SizedBox(
+                               const SizedBox(
                                   width: 15,
                                 ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      "Following",
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 15),
-                                    ),
-
-                                    Text(
-                                      '${following.length}',
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 15),
-                                    )
-                                  ],
+                                InkWell(
+                                  onTap: (){
+                                    print(following);
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return followsFollowersListWidget(following, 'Following');
+                                },);
+                                  },
+                                  child: 
+                                  Column(
+                                    children: [
+                                     const Text(
+                                        "Following",
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 15),
+                                      ),
+                                      
+                                      Text(
+                                        '${following.length}',
+                                        style: const TextStyle(
+                                            color: Colors.black, fontSize: 15),
+                                      ),
+              
+                                    ],
+                                  ),
+                                
                                 ),
+                             
                               ],
                             ),
                             SizedBox(
@@ -221,10 +255,16 @@ class _ProfileCard extends State<ProfileCard> {
                           ],
                         ),
                       ),
+
+                      const SizedBox(height: 10),
+
                       if (userHandler.UserProfileView == userHandler.user.name)
-                        buildButton('Edit Profile', () {}),
+                        buildButton('Edit Profile', () {
+
+                          nav('EditProfile', context);
+                        }),
                  
-                      
+
                       
                      const SizedBox(height: 10),
                     ],
@@ -267,4 +307,26 @@ class _FavArtistsState extends State<FavArtists> {
       ),
     );
   }
+}
+
+
+Widget followsFollowersListWidget(List<dynamic> list, String title) {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text(title),
+      centerTitle: true,
+    ),
+    body: ListView.builder(
+      itemCount: list.length,
+      itemBuilder: (context, index) {
+        final item = list[index];
+        return ListTile(
+          title: Text(item.toString()),
+          onTap: () {
+           
+          },
+        );
+      },
+    ),
+  );
 }

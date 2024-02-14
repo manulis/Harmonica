@@ -37,10 +37,14 @@ class _Init extends State<Init> {
           nav('NavigatorBar', context); 
           print('Usuario cargado correctamente: $user');
 
+        }else{
+          setState(() {
+            _loadingPage = false;
+          });
         }
       
       } catch (e) {
-        GenericPopUp(context, 'Error', 'Parece que hubo un error');
+        GenericPopUp(context, 'Error', 'its seems there was an error');
         print('Error: $e');
         setState(() {_loadingPage = false;});
       }
