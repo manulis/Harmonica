@@ -87,7 +87,8 @@ class _Register extends State<Register> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                Navigator.pop(context);
+                                Navigator.of(context).pop();
+                                 nav('Init', context);
                               },
                               icon: const Icon(Icons.arrow_back_ios),
                             ),
