@@ -16,6 +16,7 @@ class _Home extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Color.fromRGBO(40, 4, 64, 1),
       key: _scaffoldKey,
@@ -201,7 +202,7 @@ class _Home extends State<Home> {
                     );
                   },
                   itemCount: snapshot.data!.length,
-                  itemWidth: 300.0,
+                  itemWidth: screenWidth/1.6,
                   itemHeight: screenHeight / 1.5,
                   layout: SwiperLayout.STACK,
                 ),

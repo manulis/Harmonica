@@ -40,7 +40,11 @@ Widget buildButton(String text, VoidCallback onPressed) {
 Widget buildButton2(String text, VoidCallback onPressed) {
   return TextButton(
     onPressed: onPressed,
+    
     style: ElevatedButton.styleFrom(
+      shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
+            ),
       padding: const EdgeInsets.all(15.0),
       minimumSize: const Size(300.0, 60.0),
       backgroundColor: Color.fromRGBO(102, 61, 168, 1),
@@ -218,7 +222,6 @@ final spinkit = SpinKitFadingFour(
     );
   },
 );
-
 
 
 class loadingPage extends StatefulWidget{
