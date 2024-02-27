@@ -6,6 +6,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:harmonica/main.dart';
 import 'package:harmonica/functions/sharedPreferencesOperations.dart';
 
+
+
 class userHandler{
 
   static bool NameExists = false;
@@ -14,6 +16,7 @@ class userHandler{
   static var UserProfileView = '';
   static UserObject.User user = UserObject.User('', '', '', '', '','');
 
+  //Registrar Usuario
   static Future<bool> postUser(UserObject.User user, context) async {
     try{
       final NameResponse = await supabase.from('infoUsuarios').select('Nombre').eq('Nombre', user.name);
@@ -25,6 +28,7 @@ class userHandler{
       print(NameResponse + PhoneResponse + EmailResponse);
     }on Exception catch (e){
       GenericPopUp(context, 'Error', 'It seems there was an error');
+      print(e);
       return false;
     }
     if(!NameExists && !EmailExists && !PhoneExists){
@@ -50,6 +54,8 @@ class userHandler{
     );
     print(res);
   }
+
+  //Logar Usuario
 
   static Future<void> signIn(String email, String password) async{
     final AuthResponse res = await supabase.auth.signInWithPassword(
@@ -99,11 +105,13 @@ class userHandler{
     return false;
   }
 
+  //Ver informaciòn de un usuario
   static Future<List<Map<String, dynamic>>> GetUserInfoInRealtime(String UserProfileView) async {
     final Response = await supabase.from('infoUsuarios').select('''*''').eq('Nombre', UserProfileView);
     return Response;
   }
 
+  //Deslogar Usuario
   static Future<void> logoutUser(context) async{
     await deleteData();
     await supabase.auth.signOut();
@@ -120,6 +128,7 @@ class userHandler{
     );
   }
 
+  //Extraer todos los usuarios
   static Future<List<Map<String, dynamic>>> getAllusers(String user) async {
     if(user == ''){
       return [];
@@ -133,9 +142,11 @@ class userHandler{
 
 class songHandler {
 
+  //Extraer canciones
   static Future<List<Map<String, dynamic>>> getSong() async {
     try{
       final data =  await supabase.from("post").select('*,  cancion!inner(*), infoUsuarios!inner(*)');
+      print(data);
       return data;
     }on Exception catch (e){
       print("Error: ${e}");

@@ -167,7 +167,17 @@ class _ProfileCard extends State<ProfileCard> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                           buildButton2('Following', () async {
+                            GenericPopUpWithIcon(context, 
+                              () async {
+                                setState(() {_Loading= true;});
+                                await User.unfollow(userHandler.UserProfileView);
+                                setState(() {_Loading = false;});
+                              }, 
+                              const Icon(Icons.person), 
 
+                              '¿Are you sure you want unfollow ${userHandler.UserProfileView}?' 
+                            );
+                           
                           }),
 
                         ],),
@@ -182,10 +192,8 @@ class _ProfileCard extends State<ProfileCard> {
                             GestureDetector(
                               onTap: () async{
 
-                                setState(() {
-                                  _Loading = true;
-                                });
-                                
+                                setState(() {_Loading = true;});
+                                  
                                 print(followers);
                                 var mapfollowers = [];
                                 
@@ -199,10 +207,8 @@ class _ProfileCard extends State<ProfileCard> {
                                   builder: (BuildContext context) {
                                     return followsFollowersListWidget(mapfollowers, 'Followers', context);
                                 },);
-
-                                setState(() {
-                                  _Loading = false;
-                                });
+                                
+                                setState(() {_Loading = false; });
                             
                               },
                                 child: Column(
@@ -364,7 +370,7 @@ Widget followsFollowersListWidget(List<dynamic> list, String title, context) {
             elevation: 5,
               margin: EdgeInsets.all(8),
             color: Color.fromARGB(255, 241, 241, 241),
-            child: 
+            child:
             ListTile(
               leading: 
               CircleAvatar(

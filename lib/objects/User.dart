@@ -48,6 +48,19 @@ class User {
   }
 
   static Future unfollow(String user) async {
+    final Response = await supabase.from('infoUsuarios').select('Seguidores').ilike('Nombre', '$user%');
+    final Response2 = await supabase.from('infoUsuarios').select('Seguidos').ilike('Nombre', userHandler.user.name);
+    List followers = Response[0]['Seguidores'];
+    List followsofCurrentUser = Response2[0]['Seguidos'];
+    followers.removeWhere((element) => element==userHandler.user.name);
+    followsofCurrentUser.removeWhere((element)=> element == user);
+    await supabase.from('infoUsuarios').update({ 'Seguidores': followers }).match({ 'Nombre': user });
+    await supabase.from('infoUsuarios').update({'Seguidos': followsofCurrentUser}).match({'Nombre': userHandler.user.name});
+  }
+
+  static Future editData(String data) async {
+
+
 
   }
 
