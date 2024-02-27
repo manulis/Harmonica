@@ -18,11 +18,11 @@ class _Home extends State<Home> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Color.fromRGBO(40, 4, 64, 1),
+      backgroundColor: const Color.fromRGBO(40, 4, 64, 1),
       key: _scaffoldKey,
       appBar: AppBar(
         toolbarHeight: 90,
-        backgroundColor: Color.fromRGBO(40, 4, 64, 1),
+        backgroundColor: const Color.fromRGBO(40, 4, 64, 1),
         centerTitle: true,
         title: Image.asset(
           'assets/images/Isotipo2.png',
@@ -202,7 +202,7 @@ class _Home extends State<Home> {
                     );
                   },
                   itemCount: snapshot.data!.length,
-                  itemWidth: screenWidth/1.6,
+                  itemWidth: 300,
                   itemHeight: screenHeight / 1.5,
                   layout: SwiperLayout.STACK,
                 ),

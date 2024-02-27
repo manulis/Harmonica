@@ -72,7 +72,11 @@ class _ProfileCard extends State<ProfileCard> {
         future: userHandler.GetUserInfoInRealtime(userHandler.UserProfileView),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: loadingPage());
+            if (_Loading == false) {
+               return Center(child: loadingPage());
+            }
+            return Center(child: Text(''),);
+           
           } else if (snapshot.hasError) {
             return Center(
               child: Text(
@@ -219,8 +223,7 @@ class _ProfileCard extends State<ProfileCard> {
                                 ],
                               ),
                             ),
-                            
-                            
+                          
                             Row(
                               children: [
                                const SizedBox(
@@ -268,31 +271,14 @@ class _ProfileCard extends State<ProfileCard> {
                                         style: const TextStyle(
                                             color: Colors.black, fontSize: 15),
                                       ),
-              
                                     ],
                                   ),
-                                
                                 ),
-                             
                               ],
                             ),
                             const SizedBox(
                               width: 15,
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  "Posts",
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 15),
-                                ),
-                                Text(
-                                  "0",
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 15),
-                                )
-                              ],
-                            ),
+                            ),     
                           ],
                         ),
                       ),
@@ -304,9 +290,7 @@ class _ProfileCard extends State<ProfileCard> {
 
                           nav('EditProfile', context);
                         }),
-                 
 
-                      
                      const SizedBox(height: 10),
                     ],
                   ),
@@ -353,14 +337,14 @@ class _FavArtistsState extends State<FavArtists> {
 
 Widget followsFollowersListWidget(List<dynamic> list, String title, context) {
   return Scaffold(
-    backgroundColor: Color.fromARGB(255, 255, 255, 255),
+    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
     appBar: AppBar(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
-      title: Text(title,style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      title: Text(title,style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),),
       centerTitle: true,
 
       leading: IconButton(
-        icon: Icon(Icons.arrow_back, color: const Color.fromARGB(255, 0, 0, 0)),
+        icon: const Icon(Icons.arrow_back, color: Color.fromARGB(255, 0, 0, 0)),
         onPressed: () {
           Navigator.of(context).pop();
         },
