@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:harmonica/functions/navigator.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
@@ -137,7 +139,27 @@ class userHandler{
       return Response;
     }
   }
-  
+
+
+ static Future insertImage(String? image) async {
+ 
+  if(image != null){
+    try {
+      final avatarFile = File(image);
+      print(avatarFile);
+      await supabase.storage.from('avatars').upload('${userHandler.user.name}.png', avatarFile);
+      final String publicUrl = supabase.storage .from('avatars').getPublicUrl('${userHandler.user.name}.png');
+      print(publicUrl);
+
+      await supabase.from('infoUsuarios').update({ 'Imagen': publicUrl }).match({ 'Nombre': userHandler.user.name });
+
+    } catch (e) {
+      print(e); 
+    }
+  }
+
+ }
+ 
 }
 
 class songHandler {

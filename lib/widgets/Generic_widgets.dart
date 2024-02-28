@@ -212,6 +212,7 @@ class PasswordTextField extends StatelessWidget {
 
 
 //Loading widgets
+
 final spinkit = SpinKitFadingFour(
   itemBuilder: (BuildContext context, int index) {
     return DecoratedBox(

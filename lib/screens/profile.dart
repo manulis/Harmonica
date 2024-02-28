@@ -27,7 +27,7 @@ class _ProfileState extends State<Profile> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: Icon(Icons.arrow_back_ios, color: Colors.white),
             onPressed: () {
               nav('NavigatorBar', context);
             },
@@ -53,9 +53,6 @@ class _ProfileState extends State<Profile> {
     );
   }
 }
-
-
-
 
 class ProfileCard extends StatefulWidget {
   @override
@@ -343,14 +340,14 @@ class _FavArtistsState extends State<FavArtists> {
 
 Widget followsFollowersListWidget(List<dynamic> list, String title, context) {
   return Scaffold(
-    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+    backgroundColor: Color.fromRGBO(40, 4, 64, 1),
     appBar: AppBar(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      title: Text(title,style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),),
+      backgroundColor: Color.fromRGBO(40, 4, 64, 1),
+      title: Text(title,style: const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),),
       centerTitle: true,
 
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: Color.fromARGB(255, 0, 0, 0)),
+        icon: const Icon(Icons.arrow_back_ios, color: Color.fromARGB(255, 255, 255, 255)),
         onPressed: () {
           Navigator.of(context).pop();
         },
