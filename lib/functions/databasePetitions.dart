@@ -141,8 +141,7 @@ class userHandler{
   }
 
 
- static Future insertImage(String? image) async {
- 
+ static Future updateImage(String? image) async {
   if(image != null){
     try {
       final avatarFile = File(image);
@@ -150,16 +149,21 @@ class userHandler{
       await supabase.storage.from('avatars').upload('${userHandler.user.name}.png', avatarFile);
       final String publicUrl = supabase.storage .from('avatars').getPublicUrl('${userHandler.user.name}.png');
       print(publicUrl);
-
       await supabase.from('infoUsuarios').update({ 'Imagen': publicUrl }).match({ 'Nombre': userHandler.user.name });
-
+      user.image = publicUrl;
     } catch (e) {
       print(e); 
     }
+  }else{
+    print('el path es null');
   }
+ }
+
+ static Future updateData() async{
+
 
  }
- 
+
 }
 
 class songHandler {
