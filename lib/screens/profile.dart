@@ -104,6 +104,9 @@ class _ProfileCard extends State<ProfileCard> {
                 width: MediaQuery.of(context).size.width/1.1,
                 height: 350,
                 child: Card(
+                   shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
                   color: Colors.white,
                   child: Column(
                     children: [
@@ -322,6 +325,9 @@ class _FavArtistsState extends State<FavArtists> {
       width: MediaQuery.of(context).size.width/1.1,
       height: 150,
       child: Card(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+        ),
         color: Colors.white,
         child: Column(
           children: [

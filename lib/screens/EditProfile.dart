@@ -93,12 +93,13 @@ Widget build(BuildContext context) {
               GestureDetector(
                 onTap: _getImageFromGallery,
                 child: Container(
-                  width: 150, // Tamaño deseado para la imagen
+                  width: 150,
                   height: 150,
                   child: userHandler.user.image != null && _imagePath == null
                       ? CircleAvatar(
                           radius: 30,
-                          backgroundImage: NetworkImage(
+                          backgroundImage: 
+                          NetworkImage(
                             userHandler.user.image!,
                           ),
                         )

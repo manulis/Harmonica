@@ -140,29 +140,34 @@ class userHandler{
     }
   }
 
-
+//Actualizar la imagen del perfil de usuario
  static Future updateImage(String? image) async {
+
   if(image != null){
+    await supabase.storage.from('avatars').remove(['${user.name}']);
+
     try {
       final avatarFile = File(image);
-      print(avatarFile);
-      await supabase.storage.from('avatars').upload('${userHandler.user.name}.png', avatarFile);
-      final String publicUrl = supabase.storage .from('avatars').getPublicUrl('${userHandler.user.name}.png');
-      print(publicUrl);
-      await supabase.from('infoUsuarios').update({ 'Imagen': publicUrl }).match({ 'Nombre': userHandler.user.name });
+      await supabase.storage.from('avatars').upload('${user.name}', avatarFile);
+      String publicUrl = supabase.storage .from('avatars').getPublicUrl('${user.name}');
+      await supabase.from('infoUsuarios').update({ 'Imagen': publicUrl }).match({ 'Nombre': user.name });
       user.image = publicUrl;
+      print(publicUrl);
+
     } catch (e) {
-      print(e); 
+      print(e);
+      return null;
     }
   }else{
     print('el path es null');
   }
  }
 
- static Future updateData() async{
+  //Actualizar datos del perfil de usuario
+  static Future updateData() async{
 
 
- }
+  }
 
 }
 
