@@ -14,7 +14,6 @@ class EditProfile extends StatefulWidget{
 
 class _EditProfile extends State<EditProfile>{
   TextEditingController _nameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String name = '';
@@ -75,9 +74,13 @@ Widget build(BuildContext context) {
           ),
           onPressed: () async{
             setState(() {_loading = true;});
-            await userHandler.updateImage(_imagePath);
+            bool updateImage = await userHandler.updateImage(_imagePath);
             await userHandler.updateData();
             setState(() {_loading = false;});
+            if(updateImage){
+              nav('Init', context);
+            }
+            
           },
         ),
        
@@ -174,19 +177,7 @@ Widget build(BuildContext context) {
                                 });
                               },
                             ),
-                            const SizedBox(height: 30),
-                            GenericTextField(
-                              controller: _emailController,
-                              validator: FocusEmail,
-                              labelText: 'Email',
-                              hintText: 'New Email',
-                              suffixIcon: Icons.mail,
-                              onChanged: (text) {
-                                setState(() {
-                                  name = text;
-                                });
-                              },
-                            ),
+                            
                             const SizedBox(height: 30),
                             GenericTextField(
                               controller: _phoneController,

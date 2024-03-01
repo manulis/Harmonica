@@ -7,7 +7,7 @@ import 'package:harmonica/objects/User.dart' as UserObject;
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:harmonica/main.dart';
 import 'package:harmonica/functions/sharedPreferencesOperations.dart';
-
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 
 class userHandler{
@@ -140,33 +140,46 @@ class userHandler{
     }
   }
 
-//Actualizar la imagen del perfil de usuario
- static Future updateImage(String? image) async {
+  //Actualizar la imagen del perfil de usuario
+  static Future<bool> updateImage(String? image) async {
+    if (image != null) {
+      
+      if(user.image !=null){
+        String fileName = user.image!.split('/').last;
+        await supabase.storage.from('avatars').remove([fileName]);
+      }
 
-  if(image != null){
-    await supabase.storage.from('avatars').remove(['${user.name}']);
+      try {
+        final avatarFile = File(image);
 
-    try {
-      final avatarFile = File(image);
-      await supabase.storage.from('avatars').upload('${user.name}', avatarFile);
-      String publicUrl = supabase.storage .from('avatars').getPublicUrl('${user.name}');
-      await supabase.from('infoUsuarios').update({ 'Imagen': publicUrl }).match({ 'Nombre': user.name });
-      user.image = publicUrl;
-      print(publicUrl);
+        String imageName =  '${user.name} + ${DateTime.now()}';
 
-    } catch (e) {
-      print(e);
-      return null;
+        await supabase.storage.from('avatars').upload(imageName, avatarFile);
+
+        String publicUrl = await supabase.storage.from('avatars').getPublicUrl(imageName);
+
+        await supabase.from('infoUsuarios').update({ 'Imagen': publicUrl }).match({ 'Nombre': user.name });
+
+        user.image = publicUrl;
+
+        return true;
+
+      } catch (e) {
+        print(e);
+        
+      }
+    } else {
+      print('el path es null');
     }
-  }else{
-    print('el path es null');
+
+    return false;
   }
- }
+
 
   //Actualizar datos del perfil de usuario
   static Future updateData() async{
 
-
+    
   }
 
 }
