@@ -143,10 +143,9 @@ class userHandler{
   //Actualizar la imagen del perfil de usuario
   static Future<bool> updateImage(String? image) async {
     if (image != null) {
-      
       if(user.image !=null){
         String fileName = user.image!.split('/').last;
-        await supabase.storage.from('avatars').remove([fileName]);
+        await supabase.storage.from('avatars').remove([Uri.decodeFull(fileName)]);
       }
 
       try {
@@ -170,6 +169,7 @@ class userHandler{
       }
     } else {
       print('el path es null');
+      return true;
     }
 
     return false;
@@ -177,9 +177,33 @@ class userHandler{
 
 
   //Actualizar datos del perfil de usuario
-  static Future updateData() async{
+  static Future<bool> updateData(String Phone, String Name) async{
 
-    
+    bool validate = true;
+
+    if(Phone!=''){
+      try {
+        await supabase.from('infoUsuarios').update({ 'Telefono': Phone }).match({ 'Nombre': user.name });
+        validate = true;
+      } catch (e) {
+        validate = false;
+        print(e);
+      }
+    }
+
+    if (Name!='') {
+      try {
+         await supabase.from('infoUsuarios').update({ 'Nombre': Name }).match({ 'Nombre': user.name });
+         user.name = Name;
+         await deleteData();
+         await saveData(user, 'UserPrefs');
+         validate = true;
+      } catch (e) {
+        print(e);
+        validate = true;
+      }
+    }
+    return validate;
   }
 
 }

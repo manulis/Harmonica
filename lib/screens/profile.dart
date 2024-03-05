@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
 import 'package:harmonica/functions/navigator.dart';
+import 'package:harmonica/main.dart';
 import 'package:harmonica/objects/User.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
 
@@ -91,7 +92,7 @@ class _ProfileCard extends State<ProfileCard> {
             print(followers.runtimeType);
             
             for (var i = 0; i < followers.length; i++) {
-              if(followers[i] == userHandler.user.name){
+              if(followers[i] == userHandler.user.email){
                 userFollowed = true;
                 break;
               }
@@ -194,11 +195,11 @@ class _ProfileCard extends State<ProfileCard> {
 
                                 setState(() {_Loading = true;});
                                   
-                                print(followers);
+                      
                                 var mapfollowers = [];
                                 
                                 for (var i = 0; i < followers.length; i++) {
-                                  var followersGetInfo = await userHandler.GetUserInfoInRealtime(followers[i]);
+                                  var followersGetInfo = await supabase.from('infoUsuarios').select('*').eq('Email', followers[i] );
                                   mapfollowers.add(followersGetInfo);
                                 }
 
@@ -245,7 +246,7 @@ class _ProfileCard extends State<ProfileCard> {
                                     var mapfollowing = [];
 
                                     for (var i = 0; i < following.length; i++) {
-                                      var followingGetInfo = await userHandler.GetUserInfoInRealtime(following[i]);
+                                      var followingGetInfo = await supabase.from('infoUsuarios').select('*').eq('Email', following[i] );
                                       mapfollowing.add(followingGetInfo);
                                     }
 

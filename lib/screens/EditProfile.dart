@@ -61,8 +61,7 @@ Widget build(BuildContext context) {
         _loading ? CircularProgressIndicator() :
 
         OutlinedButton(
-          child: 
-          
+          child:   
           Text(
             "Save",
             style: TextStyle(color: Colors.white),
@@ -72,19 +71,19 @@ Widget build(BuildContext context) {
               color: Color.fromRGBO(102, 61, 168, 1),
             ),
           ),
+
           onPressed: () async{
             setState(() {_loading = true;});
             bool updateImage = await userHandler.updateImage(_imagePath);
-            await userHandler.updateData();
+            bool updateData = await userHandler.updateData(phone,name);
             setState(() {_loading = false;});
-            if(updateImage){
+            if(updateImage && updateData){
               nav('Init', context);
-            }
-            
+            }  
           },
+
         ),
        
-
       ],
     ),
     body: SingleChildScrollView(
@@ -187,7 +186,7 @@ Widget build(BuildContext context) {
                               suffixIcon: Icons.phone,
                               onChanged: (text) {
                                 setState(() {
-                                  name = text;
+                                  phone = text;
                                 });
                               },
                             ),
