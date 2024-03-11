@@ -2,9 +2,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:harmonica/functions/navigator.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
+import 'package:harmonica/functions/sharedPreferencesOperations.dart';
+import 'package:harmonica/main.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
 import 'package:harmonica/functions/validateFormsCamps.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class EditProfile extends StatefulWidget{
  @override
@@ -16,10 +19,8 @@ class _EditProfile extends State<EditProfile>{
   TextEditingController _nameController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String name = '';
-  String email = '';
-  String phone = '';
   bool _loading = false;
+  bool updateData = false;
 
 late ImagePicker _picker;
   String? _imagePath;
@@ -74,8 +75,21 @@ Widget build(BuildContext context) {
 
           onPressed: () async{
             setState(() {_loading = true;});
+
             bool updateImage = await userHandler.updateImage(_imagePath);
-            bool updateData = await userHandler.updateData(phone,name);
+            updateData = true;
+          
+            if(_nameController.text != '' || _phoneController.text != ''){
+              
+              _save();
+              
+              if(updateData){
+                updateData = await userHandler.updateData(_phoneController.text,_nameController.text);
+              }
+                
+              
+            } 
+
             setState(() {_loading = false;});
             if(updateImage && updateData){
               nav('Init', context);
@@ -166,17 +180,15 @@ Widget build(BuildContext context) {
                             const SizedBox(height: 30),
                             GenericTextField(
                               controller: _nameController,
-                              validator: FocusName,
+                              validator: _FocusName,
                               labelText: 'User Name',
                               hintText: 'New User Name',
                               suffixIcon: Icons.person,
                               onChanged: (text) {
-                                setState(() {
-                                  name = text;
-                                });
+                                
                               },
                             ),
-                            
+
                             const SizedBox(height: 30),
                             GenericTextField(
                               controller: _phoneController,
@@ -185,9 +197,7 @@ Widget build(BuildContext context) {
                               hintText: 'New Phone',
                               suffixIcon: Icons.phone,
                               onChanged: (text) {
-                                setState(() {
-                                  phone = text;
-                                });
+                              
                               },
                             ),
                             const SizedBox(height: 50),
@@ -196,7 +206,9 @@ Widget build(BuildContext context) {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                               Text('Change password'),
-                              IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios))
+                              IconButton(onPressed: (){
+                              ChangePasswor(context);
+                              }, icon: Icon(Icons.arrow_forward_ios))
 
                             ],)
                             
@@ -222,4 +234,124 @@ Widget build(BuildContext context) {
     print('Error');
   }
 
+  
+  String? _FocusName(String? value){
+    final response = userHandler.GetUserInfoInRealtime(value!);
+    if(response != []){
+      updateData=false;
+      return 'This user alredy exist';
+    }
+    
+  }
+}
+
+
+void ChangePasswor(BuildContext context) {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+   TextEditingController _passwordController = TextEditingController();
+   TextEditingController _passwordController2 = TextEditingController();
+   bool _obscureText = true;
+   bool _obscureText2 = true;
+  bool _loading = false;
+  String? passEq(String? value){
+    if(value!=_passwordController.text){return 'The password are not equal';}
+    return null;
+  }
+
+  showDialog(
+    context: context,
+    builder: (context) {
+      return  StatefulBuilder(
+         builder: (context, setState) {
+          return
+    AlertDialog(
+        actions: <Widget>[
+          
+        Center(
+         child: 
+            Form(
+              key: _formKey,
+              child: Column(
+
+                children: [
+                  const SizedBox(height: 30),
+                   PasswordTextField(
+                                controller: _passwordController, 
+                                validator: FocusPassword,
+                                labelText: 'New Password',
+                                hintText: 'Type the new Password',
+                                obscureText: _obscureText, 
+                                onToggleObscureText: (bool value) {
+                                  setState((){
+                                    _obscureText = value;
+                                  });
+                                },
+                                onChanged: (text) {
+                                
+                                },
+                              ),
+                    const SizedBox(height: 30),
+                     PasswordTextField(
+                                controller: _passwordController2, 
+                                validator: passEq,
+                                labelText: 'Confirm New Password',
+                                hintText: 'Retype the new Password',
+                                obscureText: _obscureText2, 
+                                onToggleObscureText: (bool value) {
+                                  setState((){
+                                    _obscureText2 = value;
+                                  });
+                                },
+                                onChanged: (text) {},
+                              ),
+                        
+                        _loading ? CircularProgressIndicator():
+                        buildButton('Aceptar', () async{ 
+
+                          setState((){_loading = true;});
+
+                          if (_formKey.currentState!.validate()) print('Okey');
+                       
+                          if(PasswordValidate.GoodPassword(_passwordController.text)){
+                            final UserResponse res = await supabase.auth.updateUser(
+                              UserAttributes(
+                                password: _passwordController.text,
+                              ),
+                            );
+                            final User? updatedUser = res.user;
+
+                            print(updatedUser);
+
+                            print('Hecho');
+                            userHandler.user.password = _passwordController.text;
+                            print(userHandler.user.password);
+                            deleteData();
+                            saveData(userHandler.user, 'UserPrefs');
+
+                          }else{
+                            print('No entra');
+                          }
+                          setState((){
+                            _loading= false;
+                          });
+
+                        })
+                ],
+
+              )
+            
+            )
+          ),
+        ],
+      );
+
+     }
+
+
+      );
+   
+    },
+  );
+
+  
 }

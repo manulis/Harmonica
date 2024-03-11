@@ -60,10 +60,6 @@ class User {
     await supabase.from('infoUsuarios').update({'Seguidos': followsofCurrentUser}).match({'Nombre': userHandler.user.name});
   }
 
-  static Future editData(String data) async {
 
-
-
-  }
 
 }

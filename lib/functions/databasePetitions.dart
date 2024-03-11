@@ -48,6 +48,7 @@ class userHandler{
     return false;
   }
 
+  
   static Future<void> signUp(String email, String password) async{
     AuthResponse res = await supabase.auth.signUp(
       email: email,
@@ -200,10 +201,18 @@ class userHandler{
          validate = true;
       } catch (e) {
         print(e);
-        validate = true;
+        validate = false;
       }
     }
+
     return validate;
+  }
+
+
+  //Actualizar Contraseña
+
+  static Future updatePassword() async{
+
   }
 
 }
