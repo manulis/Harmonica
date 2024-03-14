@@ -210,13 +210,7 @@ class _Register extends State<Register> {
                                   bool registerInfo = await userHandler.postUser(userHandler.user, context);
                                   setState(() {_loadinSpinner = false;});
                                   _save();
-                                  if(registerInfo){
-                                    // ignore: use_build_context_synchronously
-                                    GenericPopUpWithIcon(context, () async{
-                                    
-                                      nav('Login', context);
-                                    }, Icon(Icons.check_circle, color: Colors.green, size: 50), 'Registred!');
-                                  }
+                                
                                   print(registerInfo); 
                                 }else{
                                   _save();

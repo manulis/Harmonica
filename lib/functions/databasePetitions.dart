@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:harmonica/functions/navigator.dart';
 import 'package:harmonica/functions/validateFormsCamps.dart';
@@ -18,6 +17,7 @@ class userHandler{
   static bool PhoneExists = false;
   static var UserProfileView = '';
   static UserObject.User user = UserObject.User('', '', '', '', '','');
+  static bool retry = false;
 
   //Registrar Usuario
   static Future<bool> postUser(UserObject.User user, context) async {
@@ -36,9 +36,26 @@ class userHandler{
     }
     if(!NameExists && !EmailExists && !PhoneExists){
       try{
-        await signUp(user.email, user.password);
-        await supabase.from('infoUsuarios').insert({'Nombre': user.name, 'Imagen': user.image ,'Email': user.email, 'Telefono': user.phone, 'Fecha_nacimiento': user.birthDate, 'Seguidos': [], 'Seguidores':[]});
-        await saveData(user, 'UserPrefs');
+        if(retry == false){
+          await signUp(user.email, user.password);
+        }
+        
+        GenericPopUpWithIcon(context, () async {
+          try {
+            await signIn(user.email, user.password);
+            await supabase.from('infoUsuarios').insert({'Nombre': user.name, 'Imagen': user.image ,'Email': user.email, 'Telefono': user.phone, 'Fecha_nacimiento': user.birthDate, 'Seguidos': [], 'Seguidores':[]});
+            await saveData(user, 'UserPrefs'); 
+            // ignore: use_build_context_synchronously
+            GenericPopUpWithIcon(context, () async{
+              Navigator.of(context).pop();
+              nav('Login', context);
+            }, Icon(Icons.check_circle, color: Colors.green, size: 50), 'Registred!');
+          }on Exception catch(e){
+            print(e);
+            GenericPopUpWithIcon(context, () { retry = true; userHandler.postUser(user, context);}, Icon(Icons.error), 'No has confirmado tu Email');
+          }
+        }, Icon(Icons.email), 'We sent an email to ' + user.email + ' dont Continue until you confirm the email');
+      
         return true;
       }on Exception catch (e){
         print(e);
@@ -49,18 +66,20 @@ class userHandler{
     return false;
   }
 
-  
   static Future<void> signUp(String email, String password) async{
     AuthResponse res = await supabase.auth.signUp(
       email: email,
       password: password,
       emailRedirectTo: 'io.supabase.harmonica://signup-callback',
     );
-    print(res);
+    final Session? session = res.session;
+    final User? user = res.user;
+
+    print(session);
+    print(user);
   }
 
   //Logar Usuario
-
   static Future<void> signIn(String email, String password) async{
     final AuthResponse res = await supabase.auth.signInWithPassword(
       email: email,
@@ -125,6 +144,7 @@ class userHandler{
     nav('Init', context);
   }
 
+  //Conectar con cuenta Spotify
   static Future<void> signSpoti() async {
     await supabase.auth.signInWithOAuth(
       OAuthProvider.spotify,

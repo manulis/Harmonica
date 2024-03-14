@@ -70,6 +70,38 @@ class _Settings extends State<Settings>{
                       Text('Edit Profile'),
                   ],),)
                 ),
+
+
+                 GestureDetector(
+                  onTap: (){
+                   userHandler.signSpoti();
+                  },
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                    ),
+                    elevation: 5,
+                      margin: EdgeInsets.all(20),
+                    color: Color.fromARGB(255, 241, 241, 241),
+                    child:  Row(children: [
+                            CircleAvatar(
+                              radius: 30.0,
+                              backgroundColor: Colors.transparent,
+                              child: ClipOval(
+                                child:
+                                  SvgPicture.asset(
+                                    'assets/images/spotify.svg',
+                                      width: 30,
+                                    colorFilter: ColorFilter.mode(Color.fromARGB(255, 0, 0, 0), BlendMode.srcIn),
+                                    semanticsLabel: 'Settings '
+                                ),
+
+                              ),
+                            ),
+                      Text('Connect Spotify'),
+                  ],),)
+                
+                ),
                 
                 GestureDetector(
                   onTap: (){

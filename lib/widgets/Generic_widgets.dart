@@ -100,7 +100,7 @@ void GenericPopUpWithIcon(BuildContext context, VoidCallback onContinuePressed, 
         actions: <Widget>[
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop(); 
+              Navigator.of(context).pop();
               onContinuePressed(); 
             },
             child: const Text("Continuar"),
