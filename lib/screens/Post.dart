@@ -51,7 +51,7 @@ class _Post extends State<Post> {
             onPressed: () async {
              await songHandler.postSong(track);
 
-             nav('Home', context);
+             nav('NavigatorBar', context);
              
             },
             icon: const Icon(Icons.check, color: Colors.white),
