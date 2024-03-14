@@ -49,10 +49,10 @@ class _Post extends State<Post> {
           IconButton(
             iconSize: 38,
             onPressed: () async {
-              songHandler.postSong(track);
-              setState(() {
-                image = track.song_image_url;
-              });
+             await songHandler.postSong(track);
+
+             nav('Home', context);
+             
             },
             icon: const Icon(Icons.check, color: Colors.white),
           )
