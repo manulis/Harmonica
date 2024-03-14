@@ -1,5 +1,3 @@
-import 'package:harmonica/functions/databasePetitions.dart';
-import 'package:harmonica/main.dart';
 
 class Song {
   String song_id, song_name, song_image_url, song_artist, song_album;

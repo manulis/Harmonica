@@ -7,7 +7,6 @@ import 'package:harmonica/objects/User.dart' as UserObject;
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:harmonica/main.dart';
 import 'package:harmonica/functions/sharedPreferencesOperations.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'dart:convert';
 import 'package:harmonica/objects/Song.dart';
 import 'package:http/http.dart' as http;
