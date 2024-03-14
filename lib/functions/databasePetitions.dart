@@ -54,7 +54,7 @@ class userHandler{
             }, Icon(Icons.check_circle, color: Colors.green, size: 50), 'Registred!');
           }on Exception catch(e){
             print(e);
-            GenericPopUpWithIcon(context, () { retry = true; userHandler.postUser(user, context);}, Icon(Icons.error), 'No has confirmado tu Email');
+            GenericPopUpWithIcon(context, () { retry = true; userHandler.postUser(user, context);}, Icon(Icons.error), 'You dont confirm the Email');
           }
         }, Icon(Icons.email), 'We sent an email to ' + user.email + ' dont Continue until you confirm the email');
       
