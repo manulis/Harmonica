@@ -110,7 +110,9 @@ class _Search extends State<Search> {
         actions: [
           IconButton(
             iconSize: 38,
-            onPressed: () {},
+            onPressed: () {
+              nav('Settings', context);
+            },
             icon: const Icon(
               Icons.settings,
               color: Colors.white,

@@ -21,6 +21,7 @@ class _EditProfile extends State<EditProfile>{
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _loading = false;
   bool updateData = false;
+  bool _nameExists = false;
 
 late ImagePicker _picker;
   String? _imagePath;
@@ -50,7 +51,7 @@ Widget build(BuildContext context) {
       leading: IconButton(
         icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
         onPressed: () {
-          nav('Profile', context);
+           Navigator.pop(context);
         },
       ),
       centerTitle: true,
@@ -77,21 +78,28 @@ Widget build(BuildContext context) {
             setState(() {_loading = true;});
 
             bool updateImage = await userHandler.updateImage(_imagePath);
+
             updateData = true;
-          
+
             if(_nameController.text != '' || _phoneController.text != ''){
-              
+              final response = await userHandler.GetUserInfoInRealtime(_nameController.text);
+              print('Respuesta:');
+              print(response);
+
+              if(response.isNotEmpty){
+                print('Entra');
+                _nameExists = true;
+                 
+              }
               _save();
               
-              if(updateData){
+              if(response.isEmpty){
                 updateData = await userHandler.updateData(_phoneController.text,_nameController.text);
               }
-                
-              
             } 
 
             setState(() {_loading = false;});
-            if(updateImage && updateData){
+            if(updateImage && updateData ){
               nav('Init', context);
             }  
           },
@@ -236,11 +244,12 @@ Widget build(BuildContext context) {
 
   
   String? _FocusName(String? value){
-    final response = userHandler.GetUserInfoInRealtime(value!);
-    if(response != []){
+  
+    if(_nameExists){
       updateData=false;
       return 'This user alredy exist';
     }
+    return null;
     
   }
 }
@@ -304,6 +313,8 @@ void ChangePasswor(BuildContext context) {
                                 },
                                 onChanged: (text) {},
                               ),
+
+                        SizedBox(height: 50,),
                         
                         _loading ? CircularProgressIndicator():
                         buildButton('Aceptar', () async{ 

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:harmonica/functions/navigator.dart';
+import 'package:harmonica/functions/validateFormsCamps.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
 import 'package:harmonica/objects/User.dart' as UserObject;
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -181,17 +182,22 @@ class userHandler{
   static Future<bool> updateData(String Phone, String Name) async{
 
     bool validate = true;
+    if(phoneValidate(Phone)){
 
-    if(Phone!=''){
-      try {
-        await supabase.from('infoUsuarios').update({ 'Telefono': Phone }).match({ 'Nombre': user.name });
-        validate = true;
-      } catch (e) {
-        validate = false;
-        print(e);
-      }
+      if(Phone!=''){
+          try {
+            await supabase.from('infoUsuarios').update({ 'Telefono': Phone }).match({ 'Nombre': user.name });
+            validate = true;
+          } catch (e) {
+            validate = false;
+            print(e);
+          }
+        }
+
+    }else{
+      validate = false;
     }
-
+  
     if (Name!='') {
       try {
          await supabase.from('infoUsuarios').update({ 'Nombre': Name }).match({ 'Nombre': user.name });

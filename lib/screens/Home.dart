@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:harmonica/screens/Settings.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
 import 'package:flutter_swipe/flutter_swipe.dart';
@@ -55,7 +56,9 @@ class _Home extends State<Home> {
         actions: [
           IconButton(
             iconSize: 38,
-            onPressed: () {},
+            onPressed: () {
+              nav('Settings', context);
+            },
             icon: const Icon(
               Icons.settings,
               color: Colors.white,

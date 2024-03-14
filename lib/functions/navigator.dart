@@ -7,6 +7,7 @@ import 'package:harmonica/NavigatorBar.dart';
 import 'package:harmonica/screens/Init.dart';
 import 'package:harmonica/screens/Profile.dart';
 import 'package:harmonica/screens/EditProfile.dart';
+import 'package:harmonica/screens/Settings.dart';
 
 nav(String ScreenName, context){
   switch (ScreenName) {
@@ -25,7 +26,9 @@ nav(String ScreenName, context){
     case 'EditProfile':
       Navigator.of(context).push(CupertinoPageRoute(builder: (BuildContext context){return EditProfile();}));
       break;
-
+    case 'Settings':
+      Navigator.of(context).push(CupertinoPageRoute(builder: (BuildContext context){return Settings();}));
+      break;
     case 'NavigatorBar':
       Navigator.of(context).push(CupertinoPageRoute(builder: (BuildContext context){return NavigatorBar();}));
       break;
