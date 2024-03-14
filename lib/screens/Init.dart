@@ -90,14 +90,14 @@ class _Init extends State<Init> {
                           color: Color.fromRGBO(188, 220, 76, 1),
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.italic,
-                          fontSize: screenWidth*0.04,
+                          fontSize: 10,
                         ),
                       ),
                       Text(
                         " Connecting Listeners",
                         style: TextStyle(
                           fontStyle: FontStyle.italic,
-                          fontSize: screenWidth*0.04,
+                          fontSize: 10,
                           color: Colors.white,
                         ),
                       )

@@ -40,7 +40,11 @@ Widget buildButton(String text, VoidCallback onPressed) {
 Widget buildButton2(String text, VoidCallback onPressed) {
   return TextButton(
     onPressed: onPressed,
+    
     style: ElevatedButton.styleFrom(
+      shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
+            ),
       padding: const EdgeInsets.all(15.0),
       minimumSize: const Size(300.0, 60.0),
       backgroundColor: Color.fromRGBO(102, 61, 168, 1),
@@ -96,7 +100,7 @@ void GenericPopUpWithIcon(BuildContext context, VoidCallback onContinuePressed, 
         actions: <Widget>[
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop(); 
+              Navigator.of(context).pop();
               onContinuePressed(); 
             },
             child: const Text("Continuar"),
@@ -208,6 +212,7 @@ class PasswordTextField extends StatelessWidget {
 
 
 //Loading widgets
+
 final spinkit = SpinKitFadingFour(
   itemBuilder: (BuildContext context, int index) {
     return DecoratedBox(
@@ -218,7 +223,6 @@ final spinkit = SpinKitFadingFour(
     );
   },
 );
-
 
 
 class loadingPage extends StatefulWidget{
@@ -264,8 +268,7 @@ Widget drawerProfile(UserObject.User user, context){
                 CircleAvatar(
                   radius: 30, 
                   backgroundImage: 
-                  NetworkImage( user.image ??
-                    'https://t3.ftcdn.net/jpg/05/71/08/24/360_F_571082432_Qq45LQGlZsuby0ZGbrd79aUTSQikgcgc.jpg',
+                  NetworkImage( user.image!
                   ),
                 ):
                 const CircleAvatar(

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
 import 'package:harmonica/functions/navigator.dart';
+import 'package:harmonica/main.dart';
 import 'package:harmonica/objects/User.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
-import 'package:harmonica/functions/databasePetitions.dart';
 
+
+bool _Loading = false;
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -14,19 +16,21 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+ 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       color: Color.fromARGB(255, 19, 1, 31),
-      home: Scaffold(
+      home: 
+      Scaffold(
         backgroundColor: const Color.fromRGBO(40, 4, 64, 1),
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: Icon(Icons.arrow_back_ios, color: Colors.white),
             onPressed: () {
-              Navigator.of(context).pop();
+              nav('NavigatorBar', context);
             },
           ),
           centerTitle: true,
@@ -35,10 +39,13 @@ class _ProfileState extends State<Profile> {
             style: TextStyle(color: Colors.white),
           ), // Puedes cambiar este texto por el nombre deseado
         ),
-        body: SingleChildScrollView(
+        body: 
+       
+        SingleChildScrollView(
           child: Column(
             children: [
-              ProfileCard(),
+              
+              ProfileCard(), 
               FavArtists(),
             ],
           ),
@@ -47,9 +54,6 @@ class _ProfileState extends State<Profile> {
     );
   }
 }
-
-
-
 
 class ProfileCard extends StatefulWidget {
   @override
@@ -66,7 +70,11 @@ class _ProfileCard extends State<ProfileCard> {
         future: userHandler.GetUserInfoInRealtime(userHandler.UserProfileView),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            if (_Loading == false) {
+               return Center(child: loadingPage());
+            }
+            return Center(child: Text(''),);
+           
           } else if (snapshot.hasError) {
             return Center(
               child: Text(
@@ -84,19 +92,22 @@ class _ProfileCard extends State<ProfileCard> {
             print(followers.runtimeType);
             
             for (var i = 0; i < followers.length; i++) {
-              if(followers[i] == userHandler.user.name){
+              if(followers[i] == userHandler.user.email){
                 userFollowed = true;
                 break;
               }
             }
 
-          
-
-            return Center(
+            return
+             _Loading ? loadingPage():
+             Center(
               child: Container(
-                width: double.infinity,
+                width: MediaQuery.of(context).size.width/1.1,
                 height: 350,
                 child: Card(
+                   shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
                   color: Colors.white,
                   child: Column(
                     children: [
@@ -157,7 +168,17 @@ class _ProfileCard extends State<ProfileCard> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                           buildButton2('Following', () async {
+                            GenericPopUpWithIcon(context, 
+                              () async {
+                                setState(() {_Loading= true;});
+                                await User.unfollow(userHandler.UserProfileView);
+                                setState(() {_Loading = false;});
+                              }, 
+                              const Icon(Icons.person), 
 
+                              '¿Are you sure you want unfollow ${userHandler.UserProfileView}?' 
+                            );
+                           
                           }),
 
                         ],),
@@ -169,15 +190,27 @@ class _ProfileCard extends State<ProfileCard> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            InkWell(
-                              onTap: (){
-                                print(followers);
+                            GestureDetector(
+                              onTap: () async{
+
+                                setState(() {_Loading = true;});
+                                  
+                      
+                                var mapfollowers = [];
+                                
+                                for (var i = 0; i < followers.length; i++) {
+                                  var followersGetInfo = await supabase.from('infoUsuarios').select('*').eq('Email', followers[i] );
+                                  mapfollowers.add(followersGetInfo);
+                                }
+
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return followsFollowersListWidget(followers, 'Followers');
+                                    return followsFollowersListWidget(mapfollowers, 'Followers', context);
                                 },);
-                                                              
+                                
+                                setState(() {_Loading = false; });
+                            
                               },
                                 child: Column(
                                 children: [
@@ -197,21 +230,39 @@ class _ProfileCard extends State<ProfileCard> {
                                 ],
                               ),
                             ),
-                            
-                            
+                          
                             Row(
                               children: [
                                const SizedBox(
                                   width: 15,
                                 ),
-                                InkWell(
-                                  onTap: (){
-                                    print(following);
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return followsFollowersListWidget(following, 'Following');
-                                },);
+                                GestureDetector(
+                                  onTap: () async{
+                                    
+                                    setState(() {
+                                      _Loading = true;
+                                    });
+
+                                    var mapfollowing = [];
+
+                                    for (var i = 0; i < following.length; i++) {
+                                      var followingGetInfo = await supabase.from('infoUsuarios').select('*').eq('Email', following[i] );
+                                      mapfollowing.add(followingGetInfo);
+                                    }
+
+                                    print(mapfollowing);
+                                    
+                                    
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return followsFollowersListWidget(mapfollowing, 'Following', context);
+                                    },);
+
+                                    setState(() {
+                                      _Loading = false;
+                                    });
+
                                   },
                                   child: 
                                   Column(
@@ -227,31 +278,14 @@ class _ProfileCard extends State<ProfileCard> {
                                         style: const TextStyle(
                                             color: Colors.black, fontSize: 15),
                                       ),
-              
                                     ],
                                   ),
-                                
                                 ),
-                             
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 15,
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  "Posts",
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 15),
-                                ),
-                                Text(
-                                  "0",
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 15),
-                                )
-                              ],
-                            ),
+                            ),     
                           ],
                         ),
                       ),
@@ -263,9 +297,7 @@ class _ProfileCard extends State<ProfileCard> {
 
                           nav('EditProfile', context);
                         }),
-                 
 
-                      
                      const SizedBox(height: 10),
                     ],
                   ),
@@ -291,9 +323,12 @@ class _FavArtistsState extends State<FavArtists> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      width: MediaQuery.of(context).size.width/1.1,
       height: 150,
       child: Card(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+        ),
         color: Colors.white,
         child: Column(
           children: [
@@ -310,21 +345,67 @@ class _FavArtistsState extends State<FavArtists> {
 }
 
 
-Widget followsFollowersListWidget(List<dynamic> list, String title) {
+Widget followsFollowersListWidget(List<dynamic> list, String title, context) {
   return Scaffold(
+    backgroundColor: Color.fromRGBO(40, 4, 64, 1),
     appBar: AppBar(
-      title: Text(title),
+      backgroundColor: Color.fromRGBO(40, 4, 64, 1),
+      title: Text(title,style: const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),),
       centerTitle: true,
+
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back_ios, color: Color.fromARGB(255, 255, 255, 255)),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      ),
     ),
     body: ListView.builder(
       itemCount: list.length,
       itemBuilder: (context, index) {
-        final item = list[index];
-        return ListTile(
-          title: Text(item.toString()),
-          onTap: () {
-           
-          },
+        final item = list[index][0];
+        return SizedBox(
+          height: 70,
+          child: 
+            Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
+            ),
+            elevation: 5,
+              margin: EdgeInsets.all(8),
+            color: Color.fromARGB(255, 241, 241, 241),
+            child:
+            ListTile(
+              leading: 
+              CircleAvatar(
+                radius: 20.0,
+                backgroundColor: Colors.transparent,
+                child: ClipOval(
+                  child: item['Imagen'] == null
+                      ? Image.asset(
+                          'assets/images/userGenericImage.jpg',
+                          width: 38,
+                          height: 38,
+                        )
+                      : Image.network(
+                          item['Imagen'],
+                          width: 38.0,
+                          height: 38.0,
+                          fit: BoxFit.cover,
+                        ),
+                ),
+              ),
+              title: Text(item['Nombre'].toString()),
+              onTap: () {
+                userHandler.UserProfileView = item['Nombre'];
+                nav('Profile', context);
+              
+              },
+            )
+          
+          )
+        
+        
         );
       },
     ),

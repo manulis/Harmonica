@@ -17,6 +17,9 @@ dependencies:
   flutter_spinkit: ^5.2.0
   shared_preferences: ^2.0.8
   flutter_swipe: ^1.0.1
+  image_picker: ^1.0.5
+  flutter_cache_manager: ^3.1.2
+  
 
 dev_dependencies:
   flutter_test:
@@ -30,3 +33,5 @@ flutter:
     - assets/images/Isotipo.png
     - assets/images/Isotipo2.png
     - assets/images/userGenericImage.jpg
+    - assets/images/gears-solid.svg
+    - assets/images/spotify.svg

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:harmonica/screens/Settings.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
 import 'package:flutter_swipe/flutter_swipe.dart';
@@ -16,12 +17,13 @@ class _Home extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Color.fromRGBO(40, 4, 64, 1),
+      backgroundColor: const Color.fromRGBO(40, 4, 64, 1),
       key: _scaffoldKey,
       appBar: AppBar(
         toolbarHeight: 90,
-        backgroundColor: Color.fromRGBO(40, 4, 64, 1),
+        backgroundColor: const Color.fromRGBO(40, 4, 64, 1),
         centerTitle: true,
         title: Image.asset(
           'assets/images/Isotipo2.png',
@@ -54,7 +56,9 @@ class _Home extends State<Home> {
         actions: [
           IconButton(
             iconSize: 38,
-            onPressed: () {},
+            onPressed: () {
+              nav('Settings', context);
+            },
             icon: const Icon(
               Icons.settings,
               color: Colors.white,
@@ -201,7 +205,7 @@ class _Home extends State<Home> {
                     );
                   },
                   itemCount: snapshot.data!.length,
-                  itemWidth: 300.0,
+                  itemWidth: 300,
                   itemHeight: screenHeight / 1.5,
                   layout: SwiperLayout.STACK,
                 ),

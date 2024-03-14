@@ -63,7 +63,7 @@ class _NavigatorBarState extends State<NavigatorBar> {
         /// Add page
         Post(),
         /// Message page
-        Center(child:Text('Message Page', style: TextStyle(color: Colors.white),)),
+        Center(child:Text('----------Message Page----------\n We are Working in this Page', style: TextStyle(color: Colors.white),)),
       ][currentPageIndex],
     );
   }

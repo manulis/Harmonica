@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:harmonica/functions/databasePetitions.dart';
 import 'package:harmonica/functions/navigator.dart';
 import 'package:harmonica/widgets/Generic_widgets.dart';
+import 'package:harmonica/objects/Song.dart';
+import 'package:flutter/rendering.dart';
 
 class Post extends StatefulWidget{
   @override
@@ -8,6 +13,7 @@ class Post extends StatefulWidget{
 }
 
 class _Post extends State<Post>{
+  String songName = '';
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -28,8 +34,16 @@ class _Post extends State<Post>{
           actions: [
           IconButton(
             iconSize: 38,
-            onPressed: () {
-
+            onPressed: () async{
+              String token = await songHandler.getToken();
+              print('Nombre Canción: ' + songName);
+              final  response = await songHandler.searchSong(songName, token);
+              print("Data received: $response");
+              final data = await jsonDecode(response.body);
+              Song track = Song.fromJson(data);
+              print("La cancion es : ");
+              track.printInfo();
+              songHandler.postSong(track);
             },
             icon: const Icon(Icons.check, color: Colors.white,),
           )
@@ -38,34 +52,18 @@ class _Post extends State<Post>{
         body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(children: [
-          SearchAnchor(
-            builder: (BuildContext context, SearchController controller) {
-            return CustomSearchBar(
-                controller: controller,
-                onTap: () {
-                  controller.openView();
-                },
-                onChanged: (_) {
-                  controller.openView();
-                },
-                hintText: 'Search Song',
-                leading: Icon(Icons.search),
-             );
 
-          }, suggestionsBuilder:
-          (BuildContext context, SearchController controller) {
-            return List<ListTile>.generate(5, (int index) {
-              final String item = 'item $index';
-              return ListTile(
-                title: Text(item),
-                onTap: () {
-                  setState(() {
-                    controller.closeView(item);
-                  });
-                },
-              );
-            });
-          }),
+           SearchBar(
+            hintText: 'Buscar Canción',
+              onChanged: (text) {
+                setState(() {
+                  songName = text;
+                });
+              },
+            ),
+            const SizedBox(height: 30),
+          
+       
           Card(
 
 
