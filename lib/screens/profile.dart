@@ -335,7 +335,7 @@ class _FavArtistsState extends State<FavArtists> {
             SizedBox(height: 10,),
             Stack(alignment:Alignment.topCenter,
             children:[
-              Text("Artistas favoritos",style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0),fontSize: 18))]),
+              Text("Favourites Artists",style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0),fontSize: 18))]),
            
           ],
         ),

@@ -103,7 +103,7 @@ void GenericPopUpWithIcon(BuildContext context, VoidCallback onContinuePressed, 
               Navigator.of(context).pop();
               onContinuePressed(); 
             },
-            child: const Text("Continuar"),
+            child: const Text("Continue"),
           ),
         ],
       );
