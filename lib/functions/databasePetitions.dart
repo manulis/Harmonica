@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:harmonica/functions/navigator.dart';
 import 'package:harmonica/functions/validateFormsCamps.dart';
@@ -301,15 +302,26 @@ class songHandler {
 
     final response = await userHandler.GetUserInfoInRealtime(userHandler.user.name);
 
+    const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    print(_chars.length);
+    Random _rnd = Random();
+    String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+      length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+
+    String id_song = await song.song_id + getRandomString(62);
+    print(song.song_id);
+    print(id_song);
+
+
     final id = response[0]['id'];
       await supabase.from('cancion').insert({
-          'id_cancion': song.song_id, 
+          'id_cancion': id_song, 
           'Nombre': song.song_name, 
           'Artista': song.song_artist, 
           'Album': song.song_album,
           'Imagen': song.song_image_url
         });
-      await supabase.from('post').insert({'id_cancion': song.song_id, 'id_usuario': id});
+    await supabase.from('post').insert({'id_cancion': id_song, 'id_usuario': id});
     
   }
 
