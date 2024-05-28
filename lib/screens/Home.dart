@@ -101,16 +101,20 @@ class _Home extends State<Home> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(15.0)),
                         splashColor: Color.fromARGB(26, 102, 61, 168),
-                        onTap: () async{
-                          String url = Post['cancion']['Preview'];
-                          var parseUrl = Uri.parse(url);
+                       onTap: () async {
+                                String url = Post['cancion']['Preview'];
+                                var parseUrl = Uri.parse(url);
 
-                          if (await canLaunchUrl(parseUrl)){
-                            await launchUrl(parseUrl);
-                          } else {
-                            GenericPopUp(context, 'Error', 'It seems there was an error');
-                          }
-                        },
+                                print(parseUrl);
+
+                                
+                                if (await canLaunchUrl(parseUrl)) {
+                                  await launchUrl(parseUrl);
+                                } else {
+                                  GenericPopUp(context, 'Error', 'It seems there was an error');
+                                }
+                              
+                              },
                         child: Stack(
                           children: [
                             Column(
