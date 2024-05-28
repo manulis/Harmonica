@@ -15,12 +15,16 @@ class _Post extends State<Post> {
   String songName = '';
   String image = '';
   String artist = '';
+  String preview = '';
   Song track = new Song(
       song_id: '',
       song_name: '',
       song_image_url: '',
       song_artist: '',
-      song_album: '');
+      song_album: '',
+      song_preview: ''
+      );
+      
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +86,7 @@ class _Post extends State<Post> {
                           image = track.song_image_url;
                           songName = track.song_name;
                           artist = track.song_artist;
+                          preview = track.song_preview;
                         });
                       });
                     },

@@ -5,6 +5,8 @@ import 'package:harmonica/widgets/Generic_widgets.dart';
 import 'package:harmonica/functions/databasePetitions.dart';
 import 'package:flutter_swipe/flutter_swipe.dart';
 import 'package:harmonica/functions/navigator.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -99,7 +101,16 @@ class _Home extends State<Home> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(15.0)),
                         splashColor: Color.fromARGB(26, 102, 61, 168),
-                        onTap: () {},
+                        onTap: () async{
+                          String url = Post['cancion']['Preview'];
+                          var parseUrl = Uri.parse(url);
+
+                          if (await canLaunchUrl(parseUrl)){
+                            await launchUrl(parseUrl);
+                          } else {
+                            GenericPopUp(context, 'Error', 'It seems there was an error');
+                          }
+                        },
                         child: Stack(
                           children: [
                             Column(
@@ -217,3 +228,4 @@ class _Home extends State<Home> {
     );
   }
 }
+

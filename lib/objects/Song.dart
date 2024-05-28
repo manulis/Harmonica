@@ -1,6 +1,6 @@
 
 class Song {
-  String song_id, song_name, song_image_url, song_artist, song_album;
+  String song_id, song_name, song_image_url, song_artist, song_album, song_preview;
 
   Song({
     required this.song_id,
@@ -8,6 +8,7 @@ class Song {
     required this.song_image_url,
     required this.song_artist,
     required this.song_album,
+    required this.song_preview,
    
   });
 
@@ -22,6 +23,7 @@ class Song {
           song_image_url: track["album"]["images"][1]["url"] as String? ?? "",
           song_artist: track["artists"][0]["name"] as String? ?? "",
           song_album: track["album"]["name"] as String? ?? "",
+          song_preview: track["preview_url"]
          
         );
       } else {
@@ -37,6 +39,7 @@ class Song {
     print('Song Image URL: $song_image_url');
     print('Song Artist: $song_artist');
     print('Song Album: $song_album');
+    print('Song Preview: $song_preview');
     
   }
 }
