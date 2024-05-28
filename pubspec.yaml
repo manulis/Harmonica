@@ -19,6 +19,8 @@ dependencies:
   flutter_swipe: ^1.0.1
   image_picker: ^1.0.5
   flutter_cache_manager: ^3.1.2
+  url_launcher: ^6.0.20
+  webview_flutter: ^4.0.1
   
 
 dev_dependencies:

@@ -319,6 +319,7 @@ class songHandler {
           'Nombre': song.song_name, 
           'Artista': song.song_artist, 
           'Album': song.song_album,
+          'Preview': song.song_preview,
           'Imagen': song.song_image_url
         });
     await supabase.from('post').insert({'id_cancion': id_song, 'id_usuario': id});
