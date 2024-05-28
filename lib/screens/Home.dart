@@ -139,13 +139,18 @@ class _Home extends State<Home> {
                                       Center(
                                           child: Column(children: [
                                         const SizedBox(height: 10,),
-                                        Text(
-                                          '${Post['cancion']['Artista']}',
-                                          style: const TextStyle(
-                                            fontSize: 23,
-                                            fontWeight: FontWeight.bold,
+                                        Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              '${Post['cancion']['Artista']}',
+                                              style: const TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
                                           ),
-                                        ),
+
+                                        
                                         const SizedBox(height: 10,),
                                         Text('${Post['cancion']['Nombre']}'),
                                       ])),
